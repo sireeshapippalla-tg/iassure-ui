@@ -1,0 +1,20 @@
+.App {
+  text-align: center;
+}
+
+.AppHeader {
+ /* margin:"50px"; */
+ background-color: aqua;
+ 
+}
+.AppFooter {
+  height: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+.SideMenuAndPageContent {
+  display: flex;
+  flex: 1;
+}
