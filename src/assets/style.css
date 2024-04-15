@@ -76,3 +76,69 @@ header h3 { color: #2B3B7B; font-weight: 600;}
 .switch-page-text { font-size: 14px; color: #ffffff; display: flex; align-items: center;}
 .switch-page-text.active { background-color: #FA531C;border-radius: 50px; padding: 3px 8px; }
 .switch-main {position: absolute;right: 0; left: 0; width: 160px !important; margin: 0 auto;top: 28px;}
+
+
+.ticket_bg{
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width:60px;
+    height:60px; 
+    border-radius:8px;
+    background-color: #eae8fd;
+    padding: 5px;
+
+}
+.thumb_bg{
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width:60px;
+    height:60px; 
+    border-radius:8px;
+    background-color:#dff7ea;
+    padding: 5px;
+}
+.List_bg{
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width:60px;
+    height:60px; 
+    border-radius:8px;
+    background-color:#fce6e6;
+    padding: 5px;
+}
+
+.star {
+    color: red;
+    position: relative;
+    font-size: 20px;
+}
+.text_color {
+    color: #212529;
+    font-size: 16px;
+    font-weight: 500;
+}
+.css-ipke9l-MuiButtonBase-root-MuiListItemButton-root.Mui-selected{
+    background:#A9ECFF !important;color:#2B3B7B; border-left: 6px solid #2D2D61 !important;
+}
+
+
+
+/* IncidentResolve */
+.detail-list label{ color: #000; font-weight: 500;width: 30%; }
+.detail-list span { color: #717171;}
+.detail-doc { background-color: #f0f4f7; border: 1px solid #ddd;}
+.detail-doc-icon { border-right: 1px solid #ddd; padding: 20px;}
+.blue { color: #7b39f1;}
+.blue-bg { background-color: #7b39f1;}
+.btn-blue { background-color: #7b39f1; padding: 12px 16px 12px 16px;    height: 48px;}
+.btn-close { position: relative;top: -28px; right: -17px; font-size: 11px;}
+.MuiDrawer-root .MuiDrawer-docked .css-4gciz5-MuiDrawer-docked {z-index: 1;}
+.date-bg input {padding: 6px 8px;}
+.riskrating .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {padding: 4px 0 5px; }
+

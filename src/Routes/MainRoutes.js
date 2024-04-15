@@ -11,6 +11,10 @@ import Assessment from '../pages/Assessment'
 import Schedule from '../pages/Schedule'
 import QuickAuditTask from '../pages/QuickAuditTask'
 import CustomSchduling from '../pages/CustomSchduling'
+import Incident from '../pages/Incident'
+import AddIncident from '../pages/AddIncident';
+import IncidentDashboard from '../pages/IncidentDashboard';
+import IncidentResolve from '../pages/IncidentResolve'
 
 const MainRoutes = () => {
   return (
@@ -25,6 +29,10 @@ const MainRoutes = () => {
 
           <Route path="/quickaudittask" element={<QuickAuditTask />} />
           <Route path="/customschduling" element={<CustomSchduling />} />
+          <Route path='/incident' element={<Incident/>}/>
+          <Route path='/incident/create' element={<AddIncident/>}/>
+          <Route path='/dashboard' element={<IncidentDashboard/>}/>
+          <Route path='/incident/resolve' element={<IncidentResolve/>}/>
         </Routes>
     </div>
   )

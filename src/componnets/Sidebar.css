@@ -1,2 +1,12 @@
-.MuiListItemIcon-root { margin-right: 0px !important;}
-.css-10hburv-MuiTypography-root { margin-left: 20px !important;}
+.MuiListItemIcon-root {
+     margin-right: 0px !important;
+}
+
+.css-10hburv-MuiTypography-root {
+     margin-left: 20px !important;
+     /* color: #717171 !important; */
+}
+
+.css-10hburv-MuiTypography-root.active {
+     color: "#2B3B7B"
+}

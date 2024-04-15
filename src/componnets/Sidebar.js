@@ -35,48 +35,54 @@ import Attendance from '../assets/images/Attendance.png';
 
 
 const SidebarItems = [
+    // {
+    //     label: "Home",
+    //     path: "/",
+    //     icon: <HomeIcon />,
+    //     icon: <img src={Home} alt="Home" />,
+    // },
     {
-        label: "Home",
-        path: "/",
-        icon: <HomeIcon />,
+        label: "Dashboard",
+        path: "/dashboard",
         icon: <img src={Home} alt="Home" />,
+
     },
-    {
-        label: "Notification",
-        path: "/notification",
-        icon: <img src={Notification} alt="Notification" />,
-    },
-    {
-        label: "Assessment",
-        path: "/assessment",
-        icon: <img src={Assessment} alt="Assessment" />,
-    },
-    {
-        label: "Schedule",
-        path: "/schedule",
-        icon: <img src={Schedule} alt="Scheduleicon" />,
-    },
-    {
-        label: "Training",
-        path: "/training",
-        icon: <img src={Training} alt="Training" />,
-    },
+    // {
+    //     label: "Notification",
+    //     path: "/notification",
+    //     icon: <img src={Notification} alt="Notification" />,
+    // },
+    // {
+    //     label: "Assessment",
+    //     path: "/assessment",
+    //     icon: <img src={Assessment} alt="Assessment" />,
+    // },
+    // {
+    //     label: "Schedule",
+    //     path: "/schedule",
+    //     icon: <img src={Schedule} alt="Scheduleicon" />,
+    // },
+    // {
+    //     label: "Training",
+    //     path: "/training",
+    //     icon: <img src={Training} alt="Training" />,
+    // },
     {
         label: "Incident",
         path: "/incident",
         icon: <img src={Incident} alt="Incident" />,
     },
-    {
-        label: "Stock",
-        path: "/stock",
-        icon: <img src={Stock} alt="Stock" />,
-    },
-    {
-        label: "Attendance",
-        path: "/attendance",
-        icon: <img src={Attendance} alt="Attendance" />,
-    }
-  ];
+    // {
+    //     label: "Stock",
+    //     path: "/stock",
+    //     icon: <img src={Stock} alt="Stock" />,
+    // },
+    // {
+    //     label: "Attendance",
+    //     path: "/attendance",
+    //     icon: <img src={Attendance} alt="Attendance" />,
+    // }
+];
 
 const drawerWidth = 220;
 
@@ -153,7 +159,7 @@ export default function Sidebar() {
     };
     const handleToggleDrawer = () => {
         setOpen(!open);
-      };
+    };
 
     const handleDrawerClose = () => {
         setOpen(false);
@@ -165,26 +171,26 @@ export default function Sidebar() {
     return (
         <Box sx={{ display: "flex" }}>
             <CssBaseline />
-            <Header/>
-            
+            <Header />
+
             {/* <IconButton onClick={handleToggleDrawer} className='sidebar-arrow'>
             {open ? (theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />) : <ChevronRightIcon />}
           </IconButton>
              */}
             <Drawer variant="permanent" open={open}>
-            <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerOpen}
-                className='sidebar-arrow'
-                edge="end"
-            >
-                {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-            </IconButton>
+                <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleDrawerOpen}
+                    className='sidebar-arrow'
+                    edge="end"
+                >
+                    {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                </IconButton>
                 <DrawerHeader />
                 <Divider />
                 <List sx={{ height: "100vh" }}>
-                
+
                     {SidebarItems.map((item, index) => (
                         <div>
                             <Link
@@ -196,7 +202,7 @@ export default function Sidebar() {
                                 }}
                             >
                                 <ListItemButton
-                                className='side-menubar-text'
+                                    className='side-menubar-text'
                                     sx={{
                                         minHeight: 48,
                                         justifyContent: open ? "initial" : "center",
@@ -218,6 +224,7 @@ export default function Sidebar() {
                                         </ListItemIcon>
                                     )}
                                     <ListItemIcon
+                                    className={pathname === item.path ? "active" : ""}
                                         sx={{
                                             minWidth: 0,
                                             mr: open ? 3 : "auto",
@@ -231,8 +238,11 @@ export default function Sidebar() {
                                         primary={item.label}
                                         sx={{
                                             opacity: open ? 10 : 0,
-                                            color: "#919191",
+                                            // color: "#919191",
                                             textDecoration: "none",
+                                            color: pathname === item.path ? "#2B3B7B" : "#717171",
+                                            
+                                           
                                         }}
                                     />
                                 </ListItemButton>
