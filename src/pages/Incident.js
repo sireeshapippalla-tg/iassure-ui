@@ -287,7 +287,7 @@ const Incident = () => {
                                   );
                                 }
                                 return (
-                                  <TableCell key={column.id} align={column.align} onClick={clickHandlerresolve}>
+                                  <TableCell style={{cursor:"pointer"}} key={column.id} align={column.align} onClick={clickHandlerresolve}>
                                     {column.format && typeof value === 'number'
                                       ? column.format(value)
                                       : value}
