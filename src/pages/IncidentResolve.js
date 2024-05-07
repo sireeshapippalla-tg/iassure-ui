@@ -757,13 +757,13 @@ const IncidentResolve = () => {
                                             <TableContainer className='border'>
                                                 <Table>
                                                     <TableHead>
-                                                        <TableRow>
-                                                            <TableCell>Task</TableCell>
-                                                            <TableCell>Due Date</TableCell>
-                                                            <TableCell>Comment</TableCell>
-                                                            <TableCell style={{ width: '110px' }}>Is Resolved</TableCell>
-                                                            <TableCell>Supporting Document</TableCell>
-                                                            <TableCell>Action</TableCell>
+                                                        <TableRow style={{backgroundColor:"#4a6bce"}}>
+                                                            <TableCell className='text-center fs-6 fw-bold text-white'>Task</TableCell>
+                                                            <TableCell className='text-center fs-6 fw-bold text-white'>Due Date</TableCell>
+                                                            <TableCell className='text-center fs-6 fw-bold text-white'>Comment</TableCell>
+                                                            <TableCell className='text-center fs-6 fw-bold text-white' style={{ width: '110px' }}>Is Resolved</TableCell>
+                                                            <TableCell className='text-center fs-6 fw-bold text-white'>Supporting Document</TableCell>
+                                                            <TableCell className='text-center fs-6 fw-bold text-white'>Action</TableCell>
                                                         </TableRow>
                                                     </TableHead>
                                                     <TableBody>
