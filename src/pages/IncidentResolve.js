@@ -43,14 +43,64 @@ const IncidentResolve = () => {
 
     const [showModal3, setShowModal3] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
+    const [widgets, setWidgets] = useState([]);
     const [rows, setRows] = useState([
         { id: 1, task: "", dueDate: "", comment: "", resolved: false }
     ]);
+    const [correctiveRows, setCorrectiveRows] = useState([
+        { id: 1, task: "", dueDate: "", comment: "", resolved: false }
+    ]);
     const [showAlert, setShowAlert] = useState(false);
+    const [correctiveShowAlert, setCorrectieShowAlert] = useState(false);
+    const [problemDescription, setProblemDescription] = useState('');
+    const [whyInputs, setWhyInputs] = useState([{ label: 'first why', value: '' }]);
+
+    function numberToWords(number) {
+        // const units = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
+        // const teens = ['Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+        // const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+        const units = ['', 'first', 'second', 'Third', 'Forth', 'Fifth', 'Sixth', 'Seventh', 'Eighth', 'Ninth'];
+        const teens = ['Tenth', 'Eleventh', 'Twelveth', 'Thirteenth', 'Fourteenth', 'Fifteenth', 'Sixteenth', 'Seventeenth', 'Eighteenth', 'Nineteenth'];
+        const tens = ['', '', 'Twentyth', 'Thirtyth', 'Fortyth', 'Fiftyth', 'Sixtyth', 'Seventyth', 'Eightyth', 'Ninetyth'];
+
+        if (number < 10) {
+            return units[number];
+        } else if (number < 20) {
+            return teens[number - 10];
+        } else if (number < 100) {
+            return `${tens[Math.floor(number / 10)]} ${units[number % 10]}`.trim();
+        } else {
+            return number.toString();
+        }
+    }
+
+
+    const whyInputshandleAddRow = () => {
+        const newInputs = [...whyInputs, { label: `Why ${whyInputs.length + 1}`, value: '' }];
+        setWhyInputs(newInputs);
+    };
+    const whyInputshandleRemoveRow = (index) => {
+        const updatedInputs = [...whyInputs];
+        updatedInputs.splice(index, 1);
+        setWhyInputs(updatedInputs);
+    };
+
+    const whyInputshandleInputChange = (index, value) => {
+        const updatedInputs = [...whyInputs];
+        updatedInputs[index].value = value;
+        setWhyInputs(updatedInputs);
+    };
+
+
+
 
     const handleAddRow = () => {
         const newRow = { id: rows.length + 1, task: "", dueDate: "", comment: "", resolved: false };
         setRows([...rows, newRow]);
+    };
+    const CorrectivehandleAddRow = () => {
+        const newRow = { id: correctiveRows.length + 1, task: "", dueDate: "", comment: "", resolved: false };
+        setCorrectiveRows([...correctiveRows, newRow]);
     };
 
     const handleDeleteRow = (id) => {
@@ -62,15 +112,34 @@ const IncidentResolve = () => {
             setRows(updatedRows);
         }
     };
+    const correctivehandleDeleteRow = (id) => {
+        if (correctiveRows.length === 1) {
+            console.log("Cannot delete the only row.");
+            setCorrectieShowAlert(true);
+        } else {
+            const updatedRows = correctiveRows.filter(row => row.id !== id);
+            setCorrectiveRows(updatedRows);
+        }
+    };
 
     const handleCloseAlert = () => {
         setShowAlert(false);
+    };
+
+    const correctiveHandleCloseAlert = () => {
+        setCorrectieShowAlert(false);
     };
     const handleChange = (id, field, value) => {
         const updatedRows = rows.map(row =>
             row.id === id ? { ...row, [field]: value } : row
         );
         setRows(updatedRows);
+    };
+    const correctiveRowshandleChange = (id, field, value) => {
+        const updatedRows = correctiveRows.map(row =>
+            row.id === id ? { ...row, [field]: value } : row
+        );
+        setCorrectiveRows(updatedRows);
     };
 
 
@@ -83,62 +152,73 @@ const IncidentResolve = () => {
     };
 
 
+
+    const handleDragStart = (e, widgetType, label, options) => {
+        e.dataTransfer.setData("widgetType", widgetType);
+        e.dataTransfer.setData("label", label);
+        if (widgetType === 'dropdown') {
+            e.dataTransfer.setData("options", JSON.stringify(options));
+        }
+        else {
+
+            e.dataTransfer.setData("options", JSON.stringify([]));
+        }
+    };
+
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+    };
+
+
+    const handleOnDrop = (e) => {
+        const widgetType = e.dataTransfer.getData("widgetType");
+        console.log('widgetType:', widgetType); // Add logging
+        const label = e.dataTransfer.getData("label");
+        console.log('label:', label); // Add logging
+        const optionString = e.dataTransfer.getData("options");
+        console.log('optionString:', optionString); // Add logging
+
+        // checking if optionstring is not empty
+        if (optionString.trim() !== "") {
+            try {
+                const options = JSON.parse(optionString);
+                setWidgets([...widgets, { widgetType, label, options }]);
+            } catch (error) {
+                console.error("Error parsing options JSON:", error);
+            }
+        } else {
+            console.error("No options data provided.");
+            setWidgets([...widgets, { widgetType, label, options: [] }]);
+        }
+    };
+
+
+    const handleCloseWidget = (label, widgetType) => {
+        setWidgets(widgets.filter(widget => !(widget.label === label && widget.widgetType === widgetType)));
+    };
+
+    const draggableItems = [
+        { widgetType: 'dropdown', label: 'Severity', options: ["Critical", "High", "Moderate", "Low"] },
+        { widgetType: 'dropdown', label: 'Product name', options: ["Product 1", "Product 2", "Product 3"] },
+        { widgetType: 'dropdown', label: 'Issue type', options: ["Audit", "Quality", "Security"] },
+        { widgetType: 'dropdown', label: 'Supplier Name', options: ["One", "Two", "Three"] },
+        { widgetType: 'input', label: 'Affected quantity' },
+        { widgetType: 'dropdown', label: 'Issue Area', options: ["Footwear", "Apparel", "Leather Boots", "Production Components and Materials", "Work Inprogress", "Finished Product waiting for distribution"] },
+        { widgetType: 'input', label: 'Product Code' },
+        { widgetType: 'input', label: 'Batch number' },
+    ].filter(item => !widgets.some(widget => widget.label === item.label && widget.widgetType === item.widgetType));
+
+
     return (
         <div>
             <div className='right-cont'>
                 <div className='card'>
 
-                    <div className='m-4'>
+                    <div className='m-4 row'>
                         {/*----------------- Form ------------------------*/}
-                        <div className=''>
+                        {/* <div className=''>
                             <h4 className='mb-3 sub_head'>Subject</h4>
-                            {/* <div className='row'>
-                                <div className='col-md-6 detail-list'>
-                                    <div className='mb-2'>
-                                        <label class="labels">Subject </label>
-                                        <span class="text1">:  Floor is not clean</span>
-                                    </div>
-                                    <div className='mb-2'>
-                                        <label class="labels">Description </label>
-                                        <span class="text1">:  Need to reclean the floor</span>
-                                    </div>
-                                    <div className='mb-2'>
-                                        <label class="labels">Created On </label>
-                                        <span class="text1">:   2024-04-12 09:24:43.0</span>
-                                    </div>
-                                </div>
-                                <div className='col-md-6 detail-list'>
-                                    <div className='mb-2'>
-                                        <label class="labels">Incident Id </label>
-                                        <span class="text1">: INN-001</span>
-                                    </div>
-                                    <div className='mb-2'>
-                                        <label class="labels">Organization Name	 </label>
-                                        <span class="text1">: ABC</span>
-                                    </div>
-                                    <div className='mb-2'>
-                                        <label class="labels">Priority</label>
-                                        <span class="text1">:  Minor</span>
-                                    </div>
-                                </div>
-
-                                <div className='col-m-12'>
-                                    <div className='detail-doc mt-3 row'>
-                                        <div className='col-md-3 detail-doc-icon'>
-                                        <DescriptionIcon style={{ fontSize: "30px" }} />
-                                        </div>
-                                        <div className='col-md-9 pt-2'>
-                                            <span>20240405222432809.jpeg</span>
-                                            <div className=''>
-                                                <TextSnippetIcon style={{ fontSize: "14px", color:'blue' }} />
-                                                <small className='blue me-2 pe-2 border-end'>View</small>
-                                                <DownloadIcon style={{ fontSize: "14px", color:'blue' }} />
-                                                <small className='blue'>Download</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> */}
                             <div className='mt-4'>
                                 <div className='row'>
                                     <div className='col-md-4'>
@@ -193,12 +273,6 @@ const IncidentResolve = () => {
                                             </Form.Select>
                                         </Form.Group>
                                     </div>
-                                    {/* <div className='col-md-4'>
-                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                            <Form.Label className='text_color '>Product Code</Form.Label>
-                                            <Form.Control className='input_border' type="text" placeholder="Enter Product Code " />
-                                        </Form.Group>
-                                    </div> */}
                                     <div className='col-md-4'>
                                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                             <Form.Label className='text_color'>Risk type <span className='star'>*</span></Form.Label>
@@ -305,7 +379,6 @@ const IncidentResolve = () => {
                                             variant="secondary"
                                             tabIndex={-1}
                                             style={{ backgroundColor: "rgb(241,240,239)", padding: "15px", textTransform: "capitalize", marginTop: "10px" }}
-                                        // startIcon={<CloudUploadIcon />}
                                         >
                                             Drag and drop your files or  <span style={{ textDecoration: "underline", marginLeft: "5px" }}>Browse</span>
                                             <VisuallyHiddenInput type="file" />
@@ -313,22 +386,154 @@ const IncidentResolve = () => {
                                     </div>
                                 </div>
                             </div>
+
+                            
+                        </div> */}
+                        <div class="col-md-7">
+                            <h5 className='sub_head'>Subject</h5>
+                            <div className='mt-4'>
+                                <div className='row'>
+                                    <div className='col-md-9'>
+                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                            <Form.Label className='text_color'>Source <span className='star'>*</span></Form.Label>
+                                            <Form.Select className='input_border' aria-label="Default select example">
+                                                <option>Please select Source</option>
+                                                <option value="1">Phone call</option>
+                                                <option value="2">Mail</option>
+                                                <option value="3">Production line</option>
+                                            </Form.Select>
+                                        </Form.Group>
+                                    </div>
+                                    <div className='col-md-9'>
+                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                            <Form.Label className='text_color'>Category <span className='star'>*</span></Form.Label>
+                                            <Form.Select className='input_border' aria-label="Default select example">
+                                                <option>Please select Category</option>
+                                                <option value="1">Incident</option>
+                                                <option value="2">Injury</option>
+                                                <option value="3">Complaint</option>
+                                                <option value="4">Hazard</option>
+                                            </Form.Select>
+                                        </Form.Group>
+                                    </div>
+                                    <div className='col-md-9'>
+                                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                            <Form.Label className='text_color'>Case Summary</Form.Label>
+                                            <Form.Control className='input_border' as="textarea" rows={1} placeholder='Write the description' />
+                                        </Form.Group>
+                                    </div>
+                                    <div className='col-md-9'>
+                                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                            <Form.Label className='text_color'>Case Description</Form.Label>
+                                            <Form.Control className='input_border' as="textarea" rows={2} placeholder='Write the description' />
+                                        </Form.Group>
+                                    </div>
+
+                                    <div className='col-md-9'>
+                                        <label className='text_color'>Upload Attachment</label>
+                                        <Button
+                                            fullWidth
+                                            component="label"
+                                            role={undefined}
+                                            variant="secondary"
+                                            tabIndex={-1}
+                                            style={{ backgroundColor: "rgb(241,240,239)", padding: "15px", textTransform: "capitalize", marginTop: "10px" }}
+                                        // startIcon={<CloudUploadIcon />}
+                                        >
+                                            Drag and drop your files or  <span style={{ textDecoration: "underline", marginLeft: "5px" }}>Browse</span>
+                                            <VisuallyHiddenInput type="file" />
+                                        </Button>
+                                    </div>
+                                    <div className='col-md-9 mt-4'>
+                                        <div>
+                                            <div
+                                                className='right-cont col-md-12'
+                                                onDrop={handleOnDrop}
+                                                onDragOver={handleDragOver}
+                                            >
+                                                <label className='sub_head' style={{ fontWeight: "600" }}>Add</label>
+                                                {widgets.map((widget, index) => (
+                                                    <div key={index}>
+                                                        <Form.Group className="mb-3" controlId={`exampleForm.ControlInput${index}`}>
+                                                            <Form.Label className='text_color'>{widget.label}</Form.Label>
+                                                            <div style={{ display: "flex" }}>
+                                                                {widget.widgetType === 'dropdown' ? (
+                                                                    <Form.Select className='input_border' aria-label="Default select example">
+                                                                        <option>Please select {widget.label}</option>
+                                                                        {widget.options.map((option, i) => (
+                                                                            <option key={i} value={option}>{option}</option>
+                                                                        ))}
+
+                                                                    </Form.Select>
+                                                                ) : widget.widgetType === 'date' ? (
+                                                                    <TextField
+                                                                        id={`date-picker-${index}`}
+                                                                        label={widget.label}
+                                                                        type="date"
+                                                                        defaultValue=""
+                                                                        className='input_border'
+                                                                        InputLabelProps={{
+                                                                            shrink: true,
+                                                                        }}
+                                                                        style={{ width: "100%" }}
+                                                                    />
+                                                                ) : (
+                                                                    // <Form className='input_border' type="text" placeholder={`Enter ${widget.label}`} />
+                                                                    <input className='input_border form-control' type='text' placeholder={`Enter ${widget.label}`} />
+                                                                )}
+                                                                <IconButton onClick={() => handleCloseWidget(widget.label, widget.widgetType)}>
+                                                                    <CloseIcon className='close_icon' />
+                                                                </IconButton>
+                                                            </div>
+                                                        </Form.Group>
+
+                                                    </div>
+                                                ))}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-5 mt-5" >
+                            <div className='box_shadow m-5 p-2 rounded'>
+                                <h6 className='m-3 '>
+                                    <strong>Drag and drop dynamic fields into Subject</strong>
+                                </h6>
+                                <div className='row m-2'>
+                                    {/* Render draggable items */}
+                                    {draggableItems.map((item, index) => (
+                                        <div key={index} className='col-md-6 p-2'>
+                                            <div
+                                                className='dragable_btn'
+                                                draggable={true}
+                                                onDragStart={(e) => handleDragStart(e, item.widgetType, item.label, item.options)}
+                                            >
+                                                {item.label}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                         <hr className='mt-5' />
 
-                        {/*----------------- Resolutions ------------------------*/}
+                        {/*----------------- Interim Investigation ------------------------*/}
                         <div className='mt-5'>
                             {/* <h4 className='mb-3'>Resolutions and corrective actions</h4> */}
                             {/* <h4 className='mb-3 sub_head'>Interim Investigation</h4> */}
-                            <div className='col-md-12'>
-                                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                            {/* <div className='col-md-12'> */}
+                                {/* <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                                     <Form.Label className='text_color'>Interim Investigation</Form.Label>
                                     <Form.Control className='input_border' as="textarea" rows={4} placeholder='Write your findings' />
-                                </Form.Group>
-                            </div>
-                            <div className='col-md-12'>
+                                </Form.Group> */}
+                                <h6 className='text_color'>Interim Investigation</h6>
+                                <textarea className='input_border' as="textarea" rows={4} placeholder='Write your findings' />
+                            {/* </div> */}
+                            {/* <div className='col-md-12'> */}
                                 <div className='row mt-2'>
-                                    <div className='col-md-6'>
+                                    <div className='col-md-3'>
                                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                             <Form.Label className='text_color'>Assign to/Person </Form.Label>
                                             <Form.Select className='input_border' aria-label="Default select example">
@@ -339,7 +544,7 @@ const IncidentResolve = () => {
                                             </Form.Select>
                                         </Form.Group>
                                     </div>
-                                    <div className='col-md-6'>
+                                    <div className='col-md-3'>
                                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                             <Form.Label className='text_color'>CC </Form.Label>
                                             <Form.Select className='input_border' aria-label="Default select example">
@@ -352,19 +557,202 @@ const IncidentResolve = () => {
                                     </div>
 
                                 </div>
-                            </div>
+                            {/* </div> */}
                         </div>
-                        
+
 
                         <hr className='mt-5' />
 
-                        {/*----------------- Corrective Actions ------------------------*/}
+                        {/*----------------- Root cause analysis ------------------------*/}
                         <div className='mt-5'>
-                            <h4 className='mb-3 sub_head'>Root cause analysis</h4>
-                            <div className='row'>
+                            <h6 className='mb-3 text_color'>Root cause analysis</h6>
+                            <div className='row mt-2'>
                                 <div className='col-md-12'>
                                     <div className='row d-flex justify-content-between'>
 
+                                        <div >
+                                            <TableContainer className='border'>
+                                                <Table>
+                                                    <TableHead>
+                                                        <TableRow>
+                                                            <TableCell></TableCell> {/* Placeholder for vertical heading */}
+                                                            <TableCell>
+                                                                <div className='trianglediv'><em className='triangle'></em>Why did this specific issue occur?</div>
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                <div className='trianglediv'><em className='triangle'></em>Why did this problem go undetected</div>
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                <div className='trianglediv'><em className='triangle'></em>Why was the problem not prevented?</div>
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                {/* <div className='trianglediv'><em className='triangle'></em>Action</div> */}
+                                                            </TableCell>
+
+
+                                                        </TableRow>
+                                                    </TableHead>
+                                                    <TableBody>
+                                                        <TableRow>
+                                                            <TableCell>
+                                                                <label className='rootcause_label'>Problem description</label>
+                                                            </TableCell>
+                                                            <TableCell colSpan={4}>
+                                                                <textarea
+                                                                    className="form-control"
+                                                                    style={{ backgroundColor: "#f1f0ef" }}
+                                                                    fullWidth
+                                                                    value={problemDescription}
+                                                                    onChange={(e) => setProblemDescription(e.target.value)}
+                                                                />
+                                                            </TableCell>
+                                                            {/* <TableCell>
+                                                                <IconButton onClick={whyInputshandleAddRow}>
+                                                                    add
+                                                                </IconButton>
+                                                            </TableCell> */}
+                                                        </TableRow>
+                                                        {/* {whyInputs.map((input, index) => (
+                                                            <TableRow key={index}>
+                                                                <TableCell>
+                                                                    <label className='rootcause_label'>{input.label}</label>
+                                                                </TableCell>
+                                                                <TableCell>
+                                                                    <textarea
+                                                                        className="form-control"
+                                                                        style={{ backgroundColor: "#f1f0ef" }}
+                                                                        fullWidth
+                                                                        value={input.value}
+                                                                        onChange={(e) => whyInputshandleInputChange(index, 0, e.target.value)}
+                                                                    />
+                                                                </TableCell>
+                                                                <TableCell>
+                                                                    <textarea
+                                                                        className="form-control"
+                                                                        style={{ backgroundColor: "#f1f0ef" }}
+                                                                        fullWidth
+                                                                        value={input.value}
+                                                                        onChange={(e) => whyInputshandleInputChange(index, 1, e.target.value)}
+                                                                    />
+                                                                </TableCell>
+                                                                <TableCell>
+                                                                    <textarea
+                                                                        className="form-control"
+                                                                        style={{ backgroundColor: "#f1f0ef" }}
+                                                                        fullWidth
+                                                                        value={input.value}
+                                                                        onChange={(e) => whyInputshandleInputChange(index, 2, e.target.value)}
+                                                                    />
+                                                                </TableCell>
+                                                                <TableCell>
+                                                                    {index !== whyInputs.length - 1 && (
+                                                                        <IconButton onClick={() => whyInputshandleRemoveRow(index)}>
+                                                                            delete
+                                                                        </IconButton>
+                                                                    )}
+                                                                </TableCell>
+                                                            </TableRow>
+                                                        ))} */}
+                                                        {whyInputs.map((input, index) => (
+                                                            <TableRow key={index}>
+                                                                <TableCell>
+                                                                    {/* <label className='rootcause_label'>{input.label}</label> */}
+                                                                    <label className='rootcause_label'>{`${numberToWords(index + 1)} why`}</label>
+
+
+                                                                </TableCell>
+                                                                <TableCell>
+                                                                    <textarea
+                                                                        className="form-control"
+                                                                        style={{ backgroundColor: "#f1f0ef" }}
+                                                                        fullWidth
+                                                                        value={input.value[0]}
+                                                                        onChange={(e) => whyInputshandleInputChange(index, 0, e.target.value)}
+                                                                    />
+                                                                </TableCell>
+                                                                <TableCell>
+                                                                    <textarea
+                                                                        className="form-control"
+                                                                        style={{ backgroundColor: "#f1f0ef" }}
+                                                                        fullWidth
+                                                                        value={input.value[1]}
+                                                                        onChange={(e) => whyInputshandleInputChange(index, 1, e.target.value)}
+                                                                    />
+                                                                </TableCell>
+                                                                <TableCell>
+                                                                    <textarea
+                                                                        className="form-control"
+                                                                        style={{ backgroundColor: "#f1f0ef" }}
+                                                                        fullWidth
+                                                                        value={input.value[2]}
+                                                                        onChange={(e) => whyInputshandleInputChange(index, 2, e.target.value)}
+                                                                    />
+                                                                </TableCell>
+                                                                <TableCell>
+                                                                    {index !== 0 && (
+                                                                        <IconButton onClick={() => whyInputshandleRemoveRow(index)}>
+                                                                            <CloseIcon style={{ color: "red" }} />
+                                                                        </IconButton>
+                                                                    )}
+                                                                    <IconButton onClick={index === whyInputs.length - 1 ? whyInputshandleAddRow : () => whyInputshandleAddRow(index)}>
+                                                                        <AddIcon className='blue' style={{ fontSize: "30px", fontWeight: "500" }} />
+                                                                    </IconButton>
+                                                                </TableCell>
+                                                            </TableRow>
+                                                        ))}
+                                                    </TableBody>
+                                                </Table>
+                                            </TableContainer>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            {/* -----------------corrective action----------- */}
+
+                            {/* <div className='mt-5'>
+                                <div className='col-md-12'>
+                                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                        <Form.Label className='text_color'>corrective action</Form.Label>
+                                        <Form.Control className='input_border' as="textarea" rows={4} placeholder='Write your findings' />
+                                    </Form.Group>
+                                </div>
+                                <div className='col-md-12'>
+                                    <div className='row mt-2'>
+                                        <div className='col-md-6'>
+                                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                                <Form.Label className='text_color'>Assign to/Person </Form.Label>
+                                                <Form.Select className='input_border' aria-label="Default select example">
+                                                    <option>Please select Person</option>
+                                                    <option value="1">Person 1</option>
+                                                    <option value="2">Person 2</option>
+                                                    <option value="3">Person 3</option>
+                                                </Form.Select>
+                                            </Form.Group>
+                                        </div>
+                                        <div className='col-md-6'>
+                                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                                <Form.Label className='text_color'>CC </Form.Label>
+                                                <Form.Select className='input_border' aria-label="Default select example">
+                                                    <option>Please select CC</option>
+                                                    <option value="1">CC 1</option>
+                                                    <option value="2">CC 2</option>
+                                                    <option value="3">CC 3</option>
+                                                </Form.Select>
+                                            </Form.Group>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div> */}
+                            <div className='row mt-5 text_color'>
+                                <div className='col-md-12'>
+                                    <div className='row d-flex justify-content-between'>
+                                        <h6>Corrective action</h6>
                                         <div >
                                             <TableContainer className='border'>
                                                 <Table>
@@ -378,45 +766,13 @@ const IncidentResolve = () => {
                                                             <TableCell>Action</TableCell>
                                                         </TableRow>
                                                     </TableHead>
-                                                    {/* <TableBody>
-                                                        <TableRow style={{ backgroundColor: 'rgba(34, 41, 47, 0.05)' }}>
-                                                            <TableCell>
-                                                                <select class="form-select" aria-label="Default select example">
-                                                                    <option selected>Please Select</option>
-                                                                    <option value="1">Cleaned properly </option>
-                                                                    <option value="2">Clean the Floor and sink</option>
-                                                                    <option value="3">Wash Again</option>
-                                                                    <option value="4">Cleaned the walls again</option>
-                                                                </select>
-                                                            </TableCell>
-                                                            <TableCell>
-                                                                <TextField type="date" variant="outlined" className='date-bg' style={{ border: '1px solid #ddd', borderRadius: '4px', padding: '0px 12px', background: '#fff' }} />
-                                                            </TableCell>
-                                                            <TableCell>
-                                                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
-                                                            </TableCell>
-                                                            <TableCell>
-                                                                <Checkbox />
-                                                            </TableCell>
-                                                            <TableCell>
-                                                                <Input type="file" style={{ border: '1px solid #ddd', borderRadius: '4px', padding: '0px 10px', background: '#fff' }} />
-                                                            </TableCell>
-                                                            <TableCell className='d-flex'>
-                                                                <IconButton>
-                                                                    <CloseIcon style={{ color: 'red' }} />
-
-                                                                </IconButton>
-                                                                <IconButton><AddIcon className='blue' style={{ fontSize: "30px", fontWeight: "500" }} /></IconButton>
-                                                            </TableCell>
-                                                        </TableRow>
-                                                    </TableBody> */}
                                                     <TableBody>
-                                                        {rows.map(row => (
+                                                        {correctiveRows.map(row => (
                                                             <TableRow key={row.id} style={{ backgroundColor: 'rgba(34, 41, 47, 0.05)' }}>
                                                                 <TableCell>
                                                                     <select
                                                                         value={row.task}
-                                                                        onChange={(e) => handleChange(row.id, "task", e.target.value)}
+                                                                        onChange={(e) => correctiveRowshandleChange(row.id, "task", e.target.value)}
                                                                         className="form-select"
                                                                         aria-label="Default select example"
                                                                     >
@@ -430,7 +786,7 @@ const IncidentResolve = () => {
                                                                 <TableCell>
                                                                     <TextField
                                                                         value={row.dueDate}
-                                                                        onChange={(e) => handleChange(row.id, "dueDate", e.target.value)}
+                                                                        onChange={(e) => correctiveRowshandleChange(row.id, "dueDate", e.target.value)}
                                                                         type="date"
                                                                         variant="outlined"
                                                                         className='date-bg'
@@ -440,7 +796,7 @@ const IncidentResolve = () => {
                                                                 <TableCell>
                                                                     <textarea
                                                                         value={row.comment}
-                                                                        onChange={(e) => handleChange(row.id, "comment", e.target.value)}
+                                                                        onChange={(e) => correctiveRowshandleChange(row.id, "comment", e.target.value)}
                                                                         className="form-control"
                                                                         id="exampleFormControlTextarea1"
                                                                         rows="1"
@@ -448,18 +804,18 @@ const IncidentResolve = () => {
                                                                 </TableCell>
                                                                 <TableCell>
                                                                     <Checkbox
-                                                                        checked={row.resolved}
-                                                                        onChange={(e) => handleChange(row.id, "resolved", e.target.checked)}
+                                                                        checked={correctiveRows.resolved}
+                                                                        onChange={(e) => correctiveRowshandleChange(row.id, "resolved", e.target.checked)}
                                                                     />
                                                                 </TableCell>
                                                                 <TableCell>
                                                                     <Input type="file" style={{ border: '1px solid #ddd', borderRadius: '4px', padding: '0px 10px', background: '#fff' }} />
                                                                 </TableCell>
                                                                 <TableCell className='d-flex'>
-                                                                    <IconButton onClick={() => handleDeleteRow(row.id)}>
+                                                                    <IconButton onClick={() => correctivehandleDeleteRow(row.id)}>
                                                                         <CloseIcon style={{ color: 'red' }} />
                                                                     </IconButton>
-                                                                    <IconButton onClick={handleAddRow}>
+                                                                    <IconButton onClick={CorrectivehandleAddRow}>
                                                                         <AddIcon className='blue' style={{ fontSize: "30px", fontWeight: "500" }} />
                                                                     </IconButton>
                                                                 </TableCell>
@@ -468,86 +824,168 @@ const IncidentResolve = () => {
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>
-                                            {showAlert && (
-                                                <Alert severity="error" onClose={handleCloseAlert}>
+                                            {correctiveShowAlert && (
+                                                <Alert severity="error" onClose={correctiveHandleCloseAlert}>
                                                     Cannot delete the only row.
                                                 </Alert>
                                             )}
-                                            <div className='row mt-4'>
-                                                <div className='col-md-4'>
-                                                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                                        <Form.Label className='text_color'>Assign to/Person </Form.Label>
-                                                        <Form.Select className='input_border' aria-label="Default select example">
-                                                            <option>Please select Person</option>
-                                                            <option value="1">Person 1</option>
-                                                            <option value="2">Person 2</option>
-                                                            <option value="3">Person 3</option>
-                                                        </Form.Select>
-                                                    </Form.Group>
-                                                </div>
-                                                <div className='col-md-4'>
-                                                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                                        <Form.Label className='text_color'>CC </Form.Label>
-                                                        <Form.Select className='input_border' aria-label="Default select example">
-                                                            <option>Please select CC</option>
-                                                            <option value="1">CC 1</option>
-                                                            <option value="2">CC 2</option>
-                                                            <option value="3">CC 3</option>
-                                                        </Form.Select>
-                                                    </Form.Group>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {/* <div className='col-md-12 mt-3'>
-                                        <div className='row'>
-                                            <div className='col-md-6'>
-                                                <div className='mb-2'>
-                                                    <label class="labels">Preventive Actions</label>
-                                                    <div className='col-md-5'>
-                                                        <textarea class="form-control" id="" rows="3"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className='col-md-2'>
-                                                <div className='mb-2'>
-                                                    <label class="labels">Resolution Type</label>
-                                                    <div className='col-md-12'>
-                                                        <input className='form-control' type='text' />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className='col-md-3'>
-                                                <p className='blue' style={{ textAlign: 'left' }} onClick={toggleModal3}><AddIcon />Add Resolution Type</p>
-                                          
-                                                <Modal show={showModal3} onHide={toggleModal3}>
-                                                    <Modal.Header className='blue-bg text-white'>
-                                                        <Modal.Title>Add Resolution Type</Modal.Title>
-                                                        <button type="button" className="btn-close bg-white" onClick={toggleModal3}></button>
-                                                    </Modal.Header>
-                                                    <Modal.Body>
-                                                        <label>Resolution:</label>
-                                                        <input type="text" className='form-control' placeholder='Enter Resolution'></input>
-                                                    </Modal.Body>
-                                                    <Modal.Footer>
-                                                        <button className='blue-bg border-0 text-white rounded btn-blue'>Add Resolution Type</button>
-                                                        <button className="btn btn-danger btn-orange" onClick={toggleModal3}>Close</button>
-                                                    
-                                                    </Modal.Footer>
-                                                </Modal>
-                                            </div>
-                                        </div>
-                                        <div className='col-md-6 mt-3'>
-                                            <label>Authorized By </label>
-                                            <span className='border p-2 rounded d-block' style={{ minHeight: '100px' }}></span>
-                                            <button className="btn btn-danger btn-orange mt-2 float-end">Clear</button>
-                                        </div>
-                                        <div class="mt-3">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                Is Resolved<Checkbox />
-                                            </label>
-                                        </div>
-                                    </div> */}
 
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            {/* -----------preventive action--------- */}
+
+                            <div className='mt-5'>
+                                {/* <div className='col-md-12'>
+                                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                        <Form.Label className='text_color'>preventive action</Form.Label>
+                                        <Form.Control className='input_border' as="textarea" rows={4} placeholder='Write your findings' />
+                                    </Form.Group>
+                                </div> */}
+                                <h6 className='text_color'>preventive action</h6>
+                                <textarea className='input_border' as="textarea" rows={4} placeholder='Write your findings' />
+                                {/* <div className='col-md-12'>
+                                    <div className='row mt-2'>
+                                        <div className='col-md-6'>
+                                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                                <Form.Label className='text_color'>Assign to/Person </Form.Label>
+                                                <Form.Select className='input_border' aria-label="Default select example">
+                                                    <option>Please select Person</option>
+                                                    <option value="1">Person 1</option>
+                                                    <option value="2">Person 2</option>
+                                                    <option value="3">Person 3</option>
+                                                </Form.Select>
+                                            </Form.Group>
+                                        </div>
+                                        <div className='col-md-6'>
+                                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                                <Form.Label className='text_color'>CC </Form.Label>
+                                                <Form.Select className='input_border' aria-label="Default select example">
+                                                    <option>Please select CC</option>
+                                                    <option value="1">CC 1</option>
+                                                    <option value="2">CC 2</option>
+                                                    <option value="3">CC 3</option>
+                                                </Form.Select>
+                                            </Form.Group>
+                                        </div>
+
+                                    </div>
+                                </div> */}
+                                {/* </div> */}
+
+
+                                <div className='row mt-3'>
+                                    <div className='col-md-12'>
+                                        <div className='row d-flex justify-content-between'>
+
+                                            <div >
+                                                {/* <TableContainer className='border'>
+                                                    <Table>
+                                                        <TableHead>
+                                                            <TableRow>
+                                                                <TableCell>Task</TableCell>
+                                                                <TableCell>Due Date</TableCell>
+                                                                <TableCell>Comment</TableCell>
+                                                                <TableCell style={{ width: '110px' }}>Is Resolved</TableCell>
+                                                                <TableCell>Supporting Document</TableCell>
+                                                                <TableCell>Action</TableCell>
+                                                            </TableRow>
+                                                        </TableHead>
+                                                        <TableBody>
+                                                            {rows.map(row => (
+                                                                <TableRow key={row.id} style={{ backgroundColor: 'rgba(34, 41, 47, 0.05)' }}>
+                                                                    <TableCell>
+                                                                        <select
+                                                                            value={row.task}
+                                                                            onChange={(e) => handleChange(row.id, "task", e.target.value)}
+                                                                            className="form-select"
+                                                                            aria-label="Default select example"
+                                                                        >
+                                                                            <option value="">Please Select</option>
+                                                                            <option value="Cleaned properly">Cleaned properly</option>
+                                                                            <option value="Clean the Floor and sink">Clean the Floor and sink</option>
+                                                                            <option value="Wash Again">Wash Again</option>
+                                                                            <option value="Cleaned the walls again">Cleaned the walls again</option>
+                                                                        </select>
+                                                                    </TableCell>
+                                                                    <TableCell>
+                                                                        <TextField
+                                                                            value={row.dueDate}
+                                                                            onChange={(e) => handleChange(row.id, "dueDate", e.target.value)}
+                                                                            type="date"
+                                                                            variant="outlined"
+                                                                            className='date-bg'
+                                                                            style={{ border: '1px solid #ddd', borderRadius: '4px', padding: '0px 12px', background: '#fff' }}
+                                                                        />
+                                                                    </TableCell>
+                                                                    <TableCell>
+                                                                        <textarea
+                                                                            value={row.comment}
+                                                                            onChange={(e) => handleChange(row.id, "comment", e.target.value)}
+                                                                            className="form-control"
+                                                                            id="exampleFormControlTextarea1"
+                                                                            rows="1"
+                                                                        ></textarea>
+                                                                    </TableCell>
+                                                                    <TableCell>
+                                                                        <Checkbox
+                                                                            checked={row.resolved}
+                                                                            onChange={(e) => handleChange(row.id, "resolved", e.target.checked)}
+                                                                        />
+                                                                    </TableCell>
+                                                                    <TableCell>
+                                                                        <Input type="file" style={{ border: '1px solid #ddd', borderRadius: '4px', padding: '0px 10px', background: '#fff' }} />
+                                                                    </TableCell>
+                                                                    <TableCell className='d-flex'>
+                                                                        <IconButton onClick={() => handleDeleteRow(row.id)}>
+                                                                            <CloseIcon style={{ color: 'red' }} />
+                                                                        </IconButton>
+                                                                        <IconButton onClick={handleAddRow}>
+                                                                            <AddIcon className='blue' style={{ fontSize: "30px", fontWeight: "500" }} />
+                                                                        </IconButton>
+                                                                    </TableCell>
+                                                                </TableRow>
+                                                            ))}
+                                                        </TableBody>
+                                                    </Table>
+                                                </TableContainer> */}
+                                                {/* {showAlert && (
+                                                    <Alert severity="error" onClose={handleCloseAlert}>
+                                                        Cannot delete the only row.
+                                                    </Alert>
+                                                )} */}
+                                                <div className='row mt-4'>
+                                                    <div className='col-md-3'>
+                                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                                            <Form.Label className='text_color'>Assign to/Person </Form.Label>
+                                                            <Form.Select className='input_border' aria-label="Default select example">
+                                                                <option>Please select Person</option>
+                                                                <option value="1">Person 1</option>
+                                                                <option value="2">Person 2</option>
+                                                                <option value="3">Person 3</option>
+                                                            </Form.Select>
+                                                        </Form.Group>
+                                                    </div>
+                                                    <div className='col-md-3'>
+                                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                                            <Form.Label className='text_color'>CC </Form.Label>
+                                                            <Form.Select className='input_border' aria-label="Default select example">
+                                                                <option>Please select CC</option>
+                                                                <option value="1">CC 1</option>
+                                                                <option value="2">CC 2</option>
+                                                                <option value="3">CC 3</option>
+                                                            </Form.Select>
+                                                        </Form.Group>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -555,8 +993,10 @@ const IncidentResolve = () => {
 
 
                         <hr className='mt-5' />
+
+                        {/* ---------------manager section-------------- */}
                         <div className='mt-5'>
-                            <h4 className='mb-3 sub_head'>Manager section</h4>
+                            {/* <h4 className='mb-3 sub_head'>Manager section</h4> */}
                             <div className='row'>
                                 <div className='col-md-6'>
                                     <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
@@ -577,7 +1017,7 @@ const IncidentResolve = () => {
                                                 </Form.Select>
                                             </Form.Group>
                                         </div>
-                                        <div className='col-md-2 mt-2'>
+                                        <div className='col-md-2 ' style={{ marginTop: "30px" }}>
 
                                             <label class="form-check-label" for="flexCheckDefault" className='text_color'>
                                                 Approve<Checkbox />
@@ -595,9 +1035,9 @@ const IncidentResolve = () => {
                                             </Form.Group>
                                         </div>
 
-                                        <div className='col-md-2 mt-2'>
+                                        <div className='col-md-2 ' style={{ marginTop: "30px" }}>
                                             <label class="form-check-label" for="flexCheckDefault" className='text_color'>
-                                                Read<Checkbox />
+                                                Redo<Checkbox />
                                             </label>
                                         </div>
 

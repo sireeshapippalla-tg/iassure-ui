@@ -3,10 +3,11 @@
 }
 
 .AppHeader {
- /* margin:"50px"; */
- background-color: aqua;
- 
+  /* margin:"50px"; */
+  background-color: aqua;
+
 }
+
 .AppFooter {
   height: 50px;
   display: flex;
@@ -14,7 +15,73 @@
   align-items: center;
   border-bottom: 1px solid black;
 }
+
 .SideMenuAndPageContent {
   display: flex;
   flex: 1;
+}
+
+.close_icon {
+  color: white;
+  width: 30px;
+  height: 30px;
+  background: red;
+  border-radius: 100px;
+  padding: 4px;
+
+}
+
+.searchdrop .bootstrap-select {
+  width: 100% !important;
+  border-radius: 6px !important;
+}
+
+.searchdrop .selectpicker {
+  height: 40px !important;
+  /* display: block !important; */
+}
+
+.bootstrap-select>select.bs-select-hidden, select.bs-select-hidden, select.selectpicker {
+  /* display: block !important; */
+}
+
+.searchdrop .dropdown-toggle {
+  height: 40px;
+  padding: 10px;
+}
+
+.rootcause_label{
+  background: #90afc5;
+  padding: 24px 40px;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 600;
+}
+.triangle {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-top: 35px solid transparent;
+  border-bottom: 35px solid transparent;
+  border-left: 30px solid #4a6bce;
+  border-right: 0;
+  position: absolute;
+  top: -1px;
+  right: -30px;
+}
+
+.trianglediv {
+  background: #4a6bce;
+  width: 80%;
+  height: 68px;
+  position: relative;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 15px;
 }

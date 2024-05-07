@@ -6,11 +6,11 @@ import Sidebar from './componnets/Sidebar';
 function App() {
   return (
     <>
-    <BrowserRouter>
-    <div>
-    <Sidebar />
-    </div>
-    </BrowserRouter>
+      <BrowserRouter>
+        <div>
+          <Sidebar />
+        </div>
+      </BrowserRouter>
     </>
   );
 }

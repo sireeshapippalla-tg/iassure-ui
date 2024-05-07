@@ -15,8 +15,7 @@ import Incident from '../pages/Incident'
 import AddIncident from '../pages/AddIncident';
 import IncidentDashboard from '../pages/IncidentDashboard';
 import IncidentResolve from '../pages/IncidentResolve'
-import Drag from '../pages/Drag';
-import Drop from '../pages/Drop'
+
 
 const MainRoutes = () => {
   return (
@@ -35,8 +34,6 @@ const MainRoutes = () => {
           <Route path='/incident/create' element={<AddIncident/>}/>
           <Route path='/dashboard' element={<IncidentDashboard/>}/>
           <Route path='/incident/resolve' element={<IncidentResolve/>}/>
-          <Route path='/drag' element={<Drag/>}/>
-          <Route path='/drop' element={<Drop/>}/>
         </Routes>
     </div>
   )
