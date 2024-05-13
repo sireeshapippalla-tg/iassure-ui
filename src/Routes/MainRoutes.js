@@ -21,7 +21,7 @@ const MainRoutes = () => {
   return (
     <div>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<IncidentDashboard />} />
           <Route path="/notification" element={<Notification />} />
           <Route path="/assessment" element={<Assessment />} />
           <Route path='/assessment/assessement-details' element={<AssessmentDetails/>}/>
