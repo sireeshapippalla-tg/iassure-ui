@@ -573,7 +573,7 @@ const IncidentResolve = () => {
                                         <button type="button" className="btn-close bg-white" onClick={toggleModal3}></button>
                                     </Modal.Header>
                                     <Modal.Body>
-                                        <label>Are you sure you wnat to close the incident!</label>
+                                        <label>Are you sure you want to close the incident!</label>
 
                                     </Modal.Body>
                                     <Modal.Footer>
