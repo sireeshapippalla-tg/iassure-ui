@@ -63,6 +63,19 @@ const IncidentResolve = () => {
     const [whyInputs, setWhyInputs] = useState([{ label: 'first why', value: '' }]);
     const [movingDivTop, setMovingDivTop] = useState(200);
     const [selectedWidget, setSelectedWidget] = useState(null);
+    const [taskAssignRows, setTaskAssignRows] = useState([1]);
+
+
+    const addTaskAssignRow = () => {
+        setTaskAssignRows([...taskAssignRows, taskAssignRows.length + 1])
+    }
+
+    const assignOptions = [
+        "Interim Investigation",
+        "Root cause analysis",
+        "Corrective action",
+        "Preventive action"
+    ];
 
     function numberToWords(number) {
         const units = ['', 'first', 'second', 'Third', 'Forth', 'Fifth', 'Sixth', 'Seventh', 'Eighth', 'Ninth'];
@@ -403,7 +416,7 @@ const IncidentResolve = () => {
 
                             </div>
 
-                            <div className='row'>
+                            {/* <div className='row'>
                                 <div className='col-md-12'>
                                     <div className='col-md-9 mt-4'>
                                         <div className='row'>
@@ -444,7 +457,6 @@ const IncidentResolve = () => {
                                         <div className='row'>
                                             <label
                                                 className='subhead_lbl'
-                                            // style={{ color: "#4a6bce", fontWeight: "bold" }}
                                             >Root cause analysis</label>
                                             <div className='col-md-5'>
                                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -480,7 +492,6 @@ const IncidentResolve = () => {
                                         <div className='row'>
                                             <label
                                                 className='subhead_lbl'
-                                            //  style={{ color: "#4a6bce", fontWeight: "bold" }}
                                             >Corrective action</label>
                                             <div className='col-md-5'>
                                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -517,7 +528,6 @@ const IncidentResolve = () => {
                                         <div className='row'>
                                             <label
                                                 className='subhead_lbl'
-                                            // style={{ color: "#4a6bce", fontWeight: "bold" }}
                                             >preventive action</label>
                                             <div className='col-md-5'>
                                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -549,14 +559,9 @@ const IncidentResolve = () => {
                                         </div>
                                     </div>
 
-                                    <div className='col-md-9'>
-                                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                                            <Form.Label className='text_color'>Comments</Form.Label>
-                                            <Form.Control className='input_border' as="textarea" rows={4} placeholder='Write your comments' />
-                                        </Form.Group>
-                                    </div>
+                                   
                                 </div>
-                                {/* <div className='col-md-5'></div> */}
+                             
                             </div>
 
                             <div className='m-3'>
@@ -583,10 +588,149 @@ const IncidentResolve = () => {
                                     </Modal.Footer>
                                 </Modal>
 
-                            </div>
-                            <div></div>
-                        </div>
+                            </div> */}
 
+                        </div>
+                        {/* <div className='row mt-5'>
+                            <label className='subhead_lbl'>Task assigning</label>
+                            <div className='col-md-3'>
+
+                                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                    <Form.Label className='text_color'>Assign</Form.Label>
+                                    <Form.Select className='input_border' aria-label="Default select example">
+                                        <option value="1">Interim Investigation</option>
+                                        <option value="2">Root cause analysis</option>
+                                        <option value="3">Corrective action</option>
+                                        <option value="3">preventive action</option>
+                                    </Form.Select>
+                                </Form.Group>
+                            </div>
+                            <div className='col-md-3'>
+                                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                    <Form.Label className='text_color'>Assign to/Person </Form.Label>
+                                    <Form.Select className='input_border' aria-label="Default select example">
+                                        <option>Please select Person</option>
+                                        <option value="1">Person 1</option>
+                                        <option value="2">Person 2</option>
+                                        <option value="3">Person 3</option>
+                                    </Form.Select>
+                                </Form.Group>
+                            </div>
+                            <div className='col-md-3'>
+                                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                    <Form.Label className='text_color'>CC </Form.Label>
+                                    <Form.Select className='input_border' aria-label="Default select example">
+                                        <option>Please select CC</option>
+                                        <option value="1">CC 1</option>
+                                        <option value="2">CC 2</option>
+                                        <option value="3">CC 3</option>
+                                    </Form.Select>
+                                </Form.Group>
+                            </div>
+                            <div className='col-md-2 d-flex '>
+                                <label class="form-check-label" for="flexCheckDefault" className='text_color m-auto'>
+                                    Redo <Checkbox /></label>
+                                <AddIcon className='close_icon m-auto' />
+                            </div>
+                            <div className='col-md-1'>
+                              
+                            </div>
+
+                            <div className='col-md-9'>
+                                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                    <Form.Label className='text_color'>Comments</Form.Label>
+                                    <Form.Control className='input_border' as="textarea" rows={4} placeholder='Write your comments' />
+                                </Form.Group>
+                            </div>
+                        </div> */}
+                        <div className='row mt-5'>
+                            <label className='subhead_lbl'>Task assigning</label>
+
+                            {taskAssignRows.map((row, index) => (
+                                <div key={index} className='row mt-4'>
+                                    <div className='col-md-3'>
+
+                                        <Form.Group className="mb-3" controlId={`exampleForm.ControlInput1-${row}`}>
+                                            <Form.Label className='text_color'>Assign</Form.Label>
+                                            <Form.Select className='input_border' aria-label="Default select example">
+                                                {/* <option value="1">Interim Investigation</option>
+                                            <option value="2">Root cause analysis</option>
+                                            <option value="3">Corrective action</option>
+                                            <option value="3">preventive action</option> */}
+                                                {assignOptions.map((option, optionIndex) => (
+                                                    <option key={optionIndex} value={optionIndex + 1}>{option}</option>
+                                                ))}
+                                            </Form.Select>
+                                        </Form.Group>
+                                    </div>
+                                    <div className='col-md-3'>
+                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                            <Form.Label className='text_color'>Assign to/Person </Form.Label>
+                                            <Form.Select className='input_border' aria-label="Default select example">
+                                                <option>Please select Person</option>
+                                                <option value="1">Person 1</option>
+                                                <option value="2">Person 2</option>
+                                                <option value="3">Person 3</option>
+                                            </Form.Select>
+                                        </Form.Group>
+                                    </div>
+                                    <div className='col-md-3'>
+                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                            <Form.Label className='text_color'>CC </Form.Label>
+                                            <Form.Select className='input_border' aria-label="Default select example">
+                                                <option>Please select CC</option>
+                                                <option value="1">CC 1</option>
+                                                <option value="2">CC 2</option>
+                                                <option value="3">CC 3</option>
+                                            </Form.Select>
+                                        </Form.Group>
+                                    </div>
+                                    <div className='col-md-1 d-flex '>
+                                        <label class="form-check-label" for="flexCheckDefault" className='text_color m-auto'>
+                                            Redo <Checkbox /></label>
+                                        {/* <AddIcon className='close_icon m-auto' /> */}
+
+                                    </div>
+                                    <div className='col-md-1' style={{marginTop:"35px"}}>
+                                        {index < assignOptions.length - 1 && (
+                                            <AddIcon className='close_icon m-auto p-0' onClick={addTaskAssignRow} />
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+
+                            <div className='col-md-9'>
+                                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                    <Form.Label className='text_color'>Comments</Form.Label>
+                                    <Form.Control className='input_border' as="textarea" rows={4} placeholder='Write your comments' />
+                                </Form.Group>
+                            </div>
+                            <div className='mt-3'>
+                                <Button
+                                    variant="contained"
+                                    onClick={toggleModal3}
+                                    style={{ backgroundColor: "#7b39f1", marginRight: "10px", padding: "10px", fontSize: "17px" }}
+                                >
+                                    Close the incident
+                                </Button>
+                                <Modal show={showModal3} onHide={toggleModal3}>
+                                    <Modal.Header className='blue-bg text-white'>
+                                        <Modal.Title>Close the incident</Modal.Title>
+                                        <button type="button" className="btn-close bg-white" onClick={toggleModal3}></button>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <label>Are you sure you want to close the incident!</label>
+
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                        <button className='blue-bg border-0 text-white rounded btn-blue'>Yes</button>
+                                        <button className="btn btn-danger btn-orange" onClick={toggleModal3}>No</button>
+
+                                    </Modal.Footer>
+                                </Modal>
+
+                            </div>
+                        </div>
                         {/* <hr className='mt-5' /> */}
 
                         {/* -----------------------------Accordian----------------------------------------------------------- */}
@@ -598,14 +742,16 @@ const IncidentResolve = () => {
                                         color: "#0c63e4",
                                         backgroundColor: "#e7f1ff",
                                         boxShadow: "inset 0 -1px 0 rgba(0, 0, 0, .125);",
-                                        padding: "10px 20px"
+                                        padding: "10px 20px",
+                                        width: "100%",
+
                                     }}
                                     expandIcon={<ExpandMoreIcon />}
                                     aria-controls="panel1-content"
                                     id="panel1-header"
-                                    className='text-primary'
+                                    className='text-primary w-full accordian_sum'
                                 >
-                                    <Typography className='accord_typo'>Interim Investigation</Typography>
+                                 <Typography className='accord_typo'>Interim Investigation</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails>
 
