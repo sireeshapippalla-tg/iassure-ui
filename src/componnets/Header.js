@@ -38,8 +38,8 @@ function Header({ currentPage }) { // Accept currentPage as a prop
             {/* {currentPage === '/assessment/assessement-details' && ( 
               
             )} */}
-            {location.pathname==="/assessment/assessement-details" &&
-              <div className="switch-main"> 
+            {location.pathname === "/assessment/assessement-details" &&
+              <div className="switch-main">
                 <div className='switch-page d-flex text-center'>
                   <div
                     className={`switch-page-text me-2 ${activePage === 'build' ? 'active' : ''}`}
@@ -50,15 +50,15 @@ function Header({ currentPage }) { // Accept currentPage as a prop
                   <div
                     className={`switch-page-text ${activePage === 'report' ? 'active' : ''}`}
                     onClick={() => handlePageClick('report')}
-                    //onClick={reportclick}
+                  //onClick={reportclick}
                   >
                     2.Report
                   </div>
                 </div>
               </div>
             }
-            {location.pathname==="/assessment/assessement-report" &&
-              <div className="switch-main"> 
+            {location.pathname === "/assessment/assessement-report" &&
+              <div className="switch-main">
                 <div className='switch-page d-flex text-center'>
                   <div
                     className={`switch-page-text me-2 ${activePage === 'build' ? 'active' : ''}`}
@@ -69,14 +69,14 @@ function Header({ currentPage }) { // Accept currentPage as a prop
                   <div
                     className={`switch-page-text ${activePage === 'report' ? 'active' : ''}`}
                     onClick={() => handlePageClick('report')}
-                    //onClick={reportclick}
+                  //onClick={reportclick}
                   >
                     2.Report
                   </div>
                 </div>
               </div>
             }
-{/* 
+            {/* 
             <div class="row">
               <div class="col-md-6">
                 <div class="input-group">
@@ -93,11 +93,11 @@ function Header({ currentPage }) { // Accept currentPage as a prop
               <img src={Logoo} alt="Logo" />
               </div> 
             </div> */}
-            <div className='d-flex'>
-            <img src={williamslogo} alt="Logo" style={{height:"55px"}} />
-            {/* <img src={rmlogo} alt="Logo" style={{height:"55px"}} /> */}
+            <div className='d-flex' style={{ height: "auto", width: "240px" }}>
+              <img src={williamslogo} alt="Logo" style={{ width: "100%" }} />
+              {/* <img src={rmlogo} alt="Logo" style={{height:"55px"}} /> */}
             </div>
-            
+
           </div>
         </div>
       </header>
