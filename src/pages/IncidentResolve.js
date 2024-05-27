@@ -394,7 +394,7 @@ const IncidentResolve = () => {
                                 </div>
                                 <div className="col-md-5 mt-5 movingdiv2" >
                                     <div className=''>
-                                        <h6 className='m-3 text-white' style={{ fontSize: '24px', fontWeight: '500' }}>
+                                        <h6 className='m-3 text-white' style={{ fontSize: '20px', fontWeight: '500' }}>
                                             Drag and drop dynamic fields into Case details
                                         </h6>
                                         <div className='row m-2'>
@@ -691,7 +691,7 @@ const IncidentResolve = () => {
                                         {/* <AddIcon className='close_icon m-auto' /> */}
 
                                     </div>
-                                    <div className='col-md-1' style={{marginTop:"35px"}}>
+                                    <div className='col-md-1' style={{margin:"auto"}}>
                                         {index < assignOptions.length - 1 && (
                                             <AddIcon className='close_icon m-auto p-0' onClick={addTaskAssignRow} />
                                         )}

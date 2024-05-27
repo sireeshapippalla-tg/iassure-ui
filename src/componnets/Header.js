@@ -3,6 +3,8 @@ import Logo from '../assets/images/Logo.png';
 import Frame from '../assets/images/Frame.png';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import rmlogo from '../assets/images/rmlogo.svg'
+import rmLogo from '../assets/images/rmLogo.png'
 
 
 function Header({ currentPage }) { // Accept currentPage as a prop
@@ -27,9 +29,9 @@ function Header({ currentPage }) { // Accept currentPage as a prop
         <div className='col-md-12 d-flex justify-content-between'>
           <div className='col-md-6 d-flex'>
             <div className='logo me-5'><img src={Logo} alt="Logo" /></div>
-            <div className='col-md-3 align-items-center d-flex'>
+            {/* <div className='col-md-3 align-items-center d-flex'>
               <h3 className='fw-6 d-flex align-items-center'>Team <img src={Frame} alt="Frame" /></h3>
-            </div>
+            </div> */}
           </div>
           <div className='col-md-6 justify-content-end d-flex'>
             {/* {currentPage === '/assessment/assessement-details' && ( 
@@ -73,19 +75,26 @@ function Header({ currentPage }) { // Accept currentPage as a prop
                 </div>
               </div>
             }
-
+{/* 
             <div class="row">
-              <div class="col-md-9">
+              <div class="col-md-6">
                 <div class="input-group">
                   <span class="input-group-append d-flex header-search rounded-3">
-                    {/* <FontAwesomeIcon icon={faSearch}  className='pt-1'/> */}
+              
                     <input type='text' className='form-control border-0 bg-transparent' placeholder='Search' />
                   </span>
                 </div>
               </div>
-              <div className='col-md-3'>
+              <div className='col-md-2'>
                 <button type="button" class="btn btn-danger btn-orange"> Create</button>
               </div> 
+              <div className='col-md-3 '>
+              <img src={Logoo} alt="Logo" />
+              </div> 
+            </div> */}
+            <div className='d-flex'>
+            <img src={rmLogo} alt="Logo" style={{height:"59px"}} />
+            {/* <img src={rmlogo} alt="Logo" style={{height:"55px"}} /> */}
             </div>
             
           </div>

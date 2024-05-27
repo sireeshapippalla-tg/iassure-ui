@@ -105,8 +105,8 @@ select.selectpicker {
 #movingdiv {
   position: fixed;
   top: 200px;
-  right: 55px;
-  width: 600px;
+  right: 45px;
+  width: 500px;
   padding: 20px;
   background-color: #2a4085;
   border: 0 solid #ccc;

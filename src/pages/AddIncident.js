@@ -675,7 +675,7 @@ const AddIncident = () => {
                     
                     >
                         <div className=''>
-                            <h6 className='m-3 text-white' style={{ fontSize: '24px', fontWeight: '500' }}>
+                            <h6 className='m-3 text-white' style={{ fontSize: '20px', fontWeight: '500' }}>
                             Drag and drop dynamic fields into Case details
                             </h6>
                             <div className='row m-2'>
