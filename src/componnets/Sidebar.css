@@ -11,7 +11,8 @@
      color: "#2B3B7B"
 }
 
-.sidebar_collapse .css-qumn4c .MuiDrawer-paper{
+.sidebar_collapse .css-qumn4c .MuiDrawer-paper,
+.sidebar_collapse .MuiDrawer-docked {
      top: 110px;
      border-top: 1px solid #ddd;
      border-radius: 0 17px 0 0;
