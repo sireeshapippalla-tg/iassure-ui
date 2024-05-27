@@ -4,7 +4,8 @@ import Frame from '../assets/images/Frame.png';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import rmlogo from '../assets/images/rmlogo.svg'
-import rmLogo from '../assets/images/rmLogo.png'
+import rmLogo from '../assets/images/rmLogo.png';
+import williamslogo from '../assets/images/williamslogo.jpeg'
 
 
 function Header({ currentPage }) { // Accept currentPage as a prop
@@ -93,7 +94,7 @@ function Header({ currentPage }) { // Accept currentPage as a prop
               </div> 
             </div> */}
             <div className='d-flex'>
-            <img src={rmLogo} alt="Logo" style={{height:"59px"}} />
+            <img src={williamslogo} alt="Logo" style={{height:"55px"}} />
             {/* <img src={rmlogo} alt="Logo" style={{height:"55px"}} /> */}
             </div>
             

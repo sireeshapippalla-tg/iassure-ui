@@ -10,3 +10,14 @@
 .css-10hburv-MuiTypography-root.active {
      color: "#2B3B7B"
 }
+
+.sidebar_collapse .css-qumn4c .MuiDrawer-paper{
+     top: 110px;
+     border-top: 1px solid #ddd;
+     border-radius: 0 17px 0 0;
+}
+.css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
+     top: 105px !important;
+     border-radius: 0 16px 0 0;
+     border-top: 1px solid #ddd;
+   }

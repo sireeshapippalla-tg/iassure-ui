@@ -177,42 +177,55 @@ export default function Sidebar() {
             {open ? (theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />) : <ChevronRightIcon />}
           </IconButton>
              */}
-            <Drawer variant="permanent" open={open}>
-                <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={handleDrawerOpen}
-                    className='sidebar-arrow'
-                    edge="end"
-                >
-                    {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                </IconButton>
-                <DrawerHeader />
-                <Divider />
-                <List sx={{ height: "100vh" }}>
+            <div className="sidebar_collapse">
+                <Drawer variant="permanent" open={open}>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={handleDrawerOpen}
+                        className='sidebar-arrow'
+                        edge="end"
+                    >
+                        {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                    </IconButton>
+                    <DrawerHeader />
+                    <Divider />
+                    <List sx={{ height: "100vh" }}>
 
-                    {SidebarItems.map((item, index) => (
-                        <div>
-                            <Link
-                                to={item.path}
-                                disablePadding
-                                sx={{ display: "block" }}
-                                style={{
-                                    textDecoration: "none"
-                                }}
-                            >
-                                <ListItemButton
-                                    className='side-menubar-text'
-                                    sx={{
-                                        minHeight: 48,
-                                        justifyContent: open ? "initial" : "center",
-                                        px: 2.5,
-                                        bgcolor: pathname === item.path ? "#A9ECFF" : "transparent",
+                        {SidebarItems.map((item, index) => (
+                            <div>
+                                <Link
+                                    to={item.path}
+                                    disablePadding
+                                    sx={{ display: "block" }}
+                                    style={{
+                                        textDecoration: "none"
                                     }}
-                                    selected={pathname === item.path}
                                 >
-                                    {index === 0 && ( // Render chevron icon for the first item
+                                    <ListItemButton
+                                        className='side-menubar-text'
+                                        sx={{
+                                            minHeight: 48,
+                                            justifyContent: open ? "initial" : "center",
+                                            px: 2.5,
+                                            bgcolor: pathname === item.path ? "#A9ECFF" : "transparent",
+                                        }}
+                                        selected={pathname === item.path}
+                                    >
+                                        {index === 0 && ( // Render chevron icon for the first item
+                                            <ListItemIcon
+                                                sx={{
+                                                    minWidth: 0,
+                                                    mr: open ? 3 : "auto",
+                                                    justifyContent: "center",
+                                                    color: "#919191",
+                                                }}
+                                            >
+                                                {/* {open ? <ChevronLeftIcon /> : <ChevronRightIcon />} */}
+                                            </ListItemIcon>
+                                        )}
                                         <ListItemIcon
+                                            className={pathname === item.path ? "active" : ""}
                                             sx={{
                                                 minWidth: 0,
                                                 mr: open ? 3 : "auto",
@@ -220,39 +233,27 @@ export default function Sidebar() {
                                                 color: "#919191",
                                             }}
                                         >
-                                            {/* {open ? <ChevronLeftIcon /> : <ChevronRightIcon />} */}
+                                            {item.icon}
                                         </ListItemIcon>
-                                    )}
-                                    <ListItemIcon
-                                    className={pathname === item.path ? "active" : ""}
-                                        sx={{
-                                            minWidth: 0,
-                                            mr: open ? 3 : "auto",
-                                            justifyContent: "center",
-                                            color: "#919191",
-                                        }}
-                                    >
-                                        {item.icon}
-                                    </ListItemIcon>
-                                    <ListItemText
-                                        primary={item.label}
-                                        sx={{
-                                            opacity: open ? 10 : 0,
-                                            // color: "#919191",
-                                            textDecoration: "none",
-                                            color: pathname === item.path ? "#2B3B7B" : "#717171",
-                                            
-                                           
-                                        }}
-                                    />
-                                </ListItemButton>
-                            </Link>
-                        </div>
-                    ))}
-                </List>
-                <Divider />
-            </Drawer>
+                                        <ListItemText
+                                            primary={item.label}
+                                            sx={{
+                                                opacity: open ? 10 : 0,
+                                                // color: "#919191",
+                                                textDecoration: "none",
+                                                color: pathname === item.path ? "#2B3B7B" : "#717171",
 
+
+                                            }}
+                                        />
+                                    </ListItemButton>
+                                </Link>
+                            </div>
+                        ))}
+                    </List>
+                    <Divider />
+                </Drawer>
+            </div>
             <Box component="main" sx={{ flexGrow: 1, p: 3, }}>
                 <DrawerHeader />
                 <MainRoutes />
