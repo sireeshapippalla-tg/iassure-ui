@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import rmlogo from '../assets/images/rmlogo.svg'
 import rmLogo from '../assets/images/rmLogo.png';
 import williamslogo from '../assets/images/williamslogo.jpeg'
+import iassure from '../assets/images/Iassure.png'
 
 
 function Header({ currentPage }) { // Accept currentPage as a prop
@@ -29,7 +30,7 @@ function Header({ currentPage }) { // Accept currentPage as a prop
       <header className='shadow-sm'>
         <div className='col-md-12 d-flex justify-content-between'>
           <div className='col-md-6 d-flex'>
-            <div className='logo me-5'><img src={Logo} alt="Logo" /></div>
+            <div className='logo me-5'><img src={iassure} alt="Logo" /></div>
             {/* <div className='col-md-3 align-items-center d-flex'>
               <h3 className='fw-6 d-flex align-items-center'>Team <img src={Frame} alt="Frame" /></h3>
             </div> */}
