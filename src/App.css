@@ -104,7 +104,7 @@ select.selectpicker {
 
 #movingdiv {
   position: fixed;
-  top: 200px;
+  top: 165px;
   right: 45px;
   width: 500px;
   padding: 20px;
@@ -130,7 +130,7 @@ select.selectpicker {
 .drop_text {
   background: #fa531c;
   border-radius: 6px;
-  padding: 10px;
+  padding: 3px;
   text-align: center;
   margin-bottom: 30px;
   color: white;
@@ -149,4 +149,9 @@ select.selectpicker {
 }
 .accordian_sum .MuiAccordionSummary-content {
 display: block;
+}
+
+.searchdrop .selectpicker{
+  display: block !important;
+  height: 48px !important;
 }

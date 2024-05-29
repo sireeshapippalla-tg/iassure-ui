@@ -2,7 +2,7 @@
 h1,h2,h3,h4,h5,h6,p,span, em,a,strong  {  font-family: "Roboto", sans-serif !important;}
 
 .css-cdi5lf-MuiTypography-root {   font-family: "Montserrat", sans-serif !important;}
-header { padding: 16px;position: fixed;width: 100%;background: #f9faf5; z-index: 99;}
+header { padding: 16px;position: fixed;width: 100%;background: #462e1e; z-index: 99;}
 .logo { width:180px;height: auto;}
 .logo img { width: 100%;height: auto;}
 header h3 { color: #2B3B7B; font-weight: 600;}
@@ -19,7 +19,7 @@ header h3 { color: #2B3B7B; font-weight: 600;}
    font-size: 18px; font-weight: 500; line-height:21.94px;color: #919191;
    display: block; text-decoration: none;}
 .side-menubar-text:hover, .side-menubar-text.active{ background:#A9ECFF !important;color:#2B3B7B; border-left: 6px solid #2D2D61 !important;}
-.right-cont {margin-top: 19px; gap: 25px;flex:   auto;}
+.right-cont {margin-top: 15px; gap: 25px;flex:   auto;}
 .right-cont .card { border-radius: 16px;}
 .body-cont { padding: 35px;}
 .bodycont-in { border-bottom: 1px solid #ddd;padding-bottom: 25px;margin-bottom: 23px;}
@@ -134,7 +134,7 @@ header h3 { color: #2B3B7B; font-weight: 600;}
     border: 1px solid #4a6bce !important;
     background-color: #fff !important;
     width: 100%;
-    border-radius: 6px;padding: 13px 20px !important;
+    /* border-radius: 6px;padding: 13px 20px !important; */
 }
 .radio_color{
     color: #4a6bce !important;
