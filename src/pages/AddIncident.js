@@ -758,8 +758,7 @@ const AddIncident = () => {
                     onDrop={handleDrop}
                     onDragOver={handleDragOver}
                     style={{
-                      border: '2px dashed #ccc',
-                      padding: '10px',
+                      padding: '4px',
                       borderRadius: '6px',
                       border: '1px solid #4a6bce',
                       textAlign: 'center',
