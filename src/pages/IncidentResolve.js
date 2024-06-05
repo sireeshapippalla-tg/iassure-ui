@@ -90,15 +90,6 @@ const IncidentResolve = () => {
 
     const [files, setFiles] = useState([]);
 
-    const correctivehandleFileChange = (event) => {
-        const newFiles = Array.from(event.target.files);
-        setFiles((prevFiles) => [...prevFiles, ...newFiles]);
-    };
-
-    const addTaskAssignRow = () => {
-        setTaskAssignRows([...taskAssignRows, taskAssignRows.length + 1]);
-    };
-
     const handleSectionChange = (section) => {
         setSelectedSection(section);
     };
@@ -176,8 +167,6 @@ const IncidentResolve = () => {
     }
 
     const whyInputshandleAddRow = () => {
-        // const newInputs = [...whyInputs, { label: `Why ${whyInputs.length + 1}`, value: '' }];
-        // setWhyInputs(newInputs);
 
         if (whyInputs.length < 5) {
             const newInputs = [
@@ -248,16 +237,6 @@ const IncidentResolve = () => {
         setWidgets(draggableItems);
     };
 
-    const handleAddRow = () => {
-        const newRow = {
-            id: rows.length + 1,
-            task: '',
-            dueDate: '',
-            comment: '',
-            resolved: false,
-        };
-        setRows([...rows, newRow]);
-    };
     const CorrectivehandleAddRow = () => {
         const newRow = {
             id: correctiveRows.length + 1,
@@ -269,15 +248,6 @@ const IncidentResolve = () => {
         setCorrectiveRows([...correctiveRows, newRow]);
     };
 
-    const handleDeleteRow = (id) => {
-        if (rows.length === 1) {
-            console.log('Cannot delete the only row.');
-            setShowAlert(true);
-        } else {
-            const updatedRows = rows.filter((row) => row.id !== id);
-            setRows(updatedRows);
-        }
-    };
     const correctivehandleDeleteRow = (id) => {
         if (correctiveRows.length === 1) {
             console.log('Cannot delete the only row.');
@@ -288,28 +258,17 @@ const IncidentResolve = () => {
         }
     };
 
-    const handleCloseAlert = () => {
-        setShowAlert(false);
-    };
+
 
     const correctiveHandleCloseAlert = () => {
         setCorrectieShowAlert(false);
     };
-    const handleChange = (id, field, value) => {
-        const updatedRows = rows.map((row) =>
-            row.id === id ? { ...row, [field]: value } : row
-        );
-        setRows(updatedRows);
-    };
+
     const correctiveRowshandleChange = (id, field, value) => {
         const updatedRows = correctiveRows.map((row) =>
             row.id === id ? { ...row, [field]: value } : row
         );
         setCorrectiveRows(updatedRows);
-    };
-
-    const handleCheckboxChange = (event) => {
-        setIsChecked(event.target.checked);
     };
 
     const toggleModal3 = () => {
@@ -378,7 +337,7 @@ const IncidentResolve = () => {
             label: 'Supplier Name',
             options: ['One', 'Two', 'Three'],
         },
-        { widgetType: 'input', label: 'Affected quantity' },
+        // { widgetType: 'input', label: 'Affected quantity' },
         {
             widgetType: 'dropdown',
             label: 'Issue Area',
@@ -393,6 +352,7 @@ const IncidentResolve = () => {
         },
         { widgetType: 'input', label: 'Product Code' },
         { widgetType: 'input', label: 'Batch number' },
+        { widgetType: 'input', label: 'Affected quantity' },
     ].filter(
         (item) =>
             !widgets.some(
@@ -600,13 +560,14 @@ const IncidentResolve = () => {
                                                         textAlign: 'center',
                                                         marginBottom: '10px',
                                                         backgroundColor: 'rgb(241,240,239)',
+                                                        fontSize: "12px"
                                                     }}
                                                 >
                                                     Drag and drop your files here or &nbsp; &nbsp;
                                                     <Button
                                                         component='label'
                                                         variant='contained'
-                                                        style={{ textTransform: 'capitalize' }}
+                                                        style={{ textTransform: 'capitalize', fontSize: "12px" }}
                                                     >
                                                         Browse
                                                         <VisuallyHiddenInput
@@ -643,7 +604,7 @@ const IncidentResolve = () => {
                                                         onDrop={handleOnDrop}
                                                         onDragOver={handleDragOver}
                                                     >
-                                                        <div className='drop_text'>
+                                                        <div className='drop_text' style={{ fontSize: "12px" }}>
                                                             <label>Drop your fields here (or) </label>
                                                             <label onClick={handleAddWidgets}>
                                                                 {' '}
@@ -738,8 +699,8 @@ const IncidentResolve = () => {
                                         >
                                             Drag and drop dynamic fields into Case details
                                         </h6>
-                                        <div className='row m-2'>
-                                            {/* Render draggable items */}
+                                        {/* <div className='row m-2'>
+                                           
                                             {draggableItems.map((item, index) => (
                                                 <div key={index} className='col-md-4 p-2'>
                                                     <div
@@ -758,7 +719,27 @@ const IncidentResolve = () => {
                                                     </div>
                                                 </div>
                                             ))}
-                                        </div>
+                                        </div> */}
+                                        <ul>
+                                            {draggableItems.map((item, index) => (
+
+                                                <li className='dragable_btn'
+                                                    draggable={true}
+                                                    onDragStart={(e) =>
+                                                        handleDragStart(
+                                                            e,
+                                                            item.widgetType,
+                                                            item.label,
+                                                            item.options
+                                                        )
+                                                    }
+                                                    key={index} >
+                                                    {item.label}
+                                                </li>
+
+
+                                            ))}
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -945,7 +926,7 @@ const IncidentResolve = () => {
                                         backgroundColor: '#7b39f1',
                                         marginRight: '10px',
                                         padding: '6px',
-                                        fontSize: '17px',
+                                        // fontSize: '17px',
                                         marginTop: "12px"
                                     }}
                                 >
@@ -1022,13 +1003,14 @@ const IncidentResolve = () => {
                                                     textAlign: 'center',
                                                     marginBottom: '10px',
                                                     backgroundColor: 'rgb(241,240,239)',
+                                                    fontSize: "12px"
                                                 }}
                                             >
                                                 Drag and drop your files here or &nbsp; &nbsp;
                                                 <Button
                                                     component='label'
                                                     variant='contained'
-                                                    style={{ textTransform: 'capitalize' }}
+                                                    style={{ textTransform: 'capitalize', fontSize: "12px" }}
                                                 >
                                                     Browse
                                                     <VisuallyHiddenInput
@@ -1246,9 +1228,6 @@ const IncidentResolve = () => {
                                                 </Form.Group>
                                             </div>
                                             <div className='col-md-6'>
-                                                {/* <label className='text_color'>
-                          Upload Attachment <span className='star'>*</span>
-                        </label> */}
                                                 <div
                                                     onDrop={handleDrop}
                                                     onDragOver={handleDragOver}
@@ -1261,13 +1240,14 @@ const IncidentResolve = () => {
                                                         marginBottom: '10px',
                                                         marginTop: '32px',
                                                         backgroundColor: 'rgb(241,240,239)',
+                                                        fontSize: "12px"
                                                     }}
                                                 >
                                                     Drag and drop your files here or &nbsp; &nbsp;
                                                     <Button
                                                         component='label'
                                                         variant='contained'
-                                                        style={{ textTransform: 'capitalize' }}
+                                                        style={{ textTransform: 'capitalize', fontSize: "12px" }}
                                                     >
                                                         Browse
                                                         <VisuallyHiddenInput
@@ -1339,28 +1319,28 @@ const IncidentResolve = () => {
                                                     <TableRow style={{ backgroundColor: '#4a6bce' }}>
                                                         <TableCell
                                                             className='text-center fs-6 fw-bold text-white'
-                                                            style={{ width: '350px' }}
+                                                            style={{ width: '350px', fontSize: "15px" }}
                                                         >
                                                             Action taken
                                                         </TableCell>
                                                         <TableCell
                                                             className='text-center fs-6 fw-bold text-white'
-                                                            style={{ width: '450px' }}
+                                                            style={{ width: '450px', fontSize: "15px" }}
                                                         >
                                                             Supporting Document
                                                         </TableCell>
-                                                        <TableCell className='text-center fs-6 fw-bold text-white'>
+                                                        <TableCell className='text-center fs-6 fw-bold text-white' style={{ fontSize: "15px" }}>
                                                             Date
                                                         </TableCell>
                                                         {/* <TableCell className='text-center fs-6 fw-bold text-white'>Comment</TableCell> */}
                                                         <TableCell
                                                             className='text-center fs-6 fw-bold text-white'
-                                                            style={{ width: '100px' }}
+                                                            style={{ width: '100px', fontSize: "15px" }}
                                                         >
                                                             Is Resolved
                                                         </TableCell>
                                                         {/* <TableCell className='text-center fs-6 fw-bold text-white' style={{ width: "250px" }}>Supporting Document</TableCell> */}
-                                                        <TableCell className='text-center fs-6 fw-bold text-white'>
+                                                        <TableCell className='text-center fs-6 fw-bold text-white' style={{ fontSize: "15px" }}>
                                                             Action
                                                         </TableCell>
                                                     </TableRow>
@@ -1387,6 +1367,7 @@ const IncidentResolve = () => {
                                                                     }
                                                                     className='form-select'
                                                                     aria-label='Default select example'
+                                                                    style={{ padding: "5px", fontSize: "14px" }}
                                                                 >
                                                                     <option value=''>Please Select</option>
                                                                     <option value='Cleaned properly'>
@@ -1434,7 +1415,7 @@ const IncidentResolve = () => {
                                                                 <Button
                                                                     component='label'
                                                                     variant='contained'
-                                                                    style={{ textTransform: 'capitalize', padding: "10px 50px"}}
+                                                                    style={{ textTransform: 'capitalize', padding: "3px 25px" }}
                                                                     startIcon={<CloudUploadIcon />}
                                                                 >
                                                                     Upload file
@@ -1597,13 +1578,14 @@ const IncidentResolve = () => {
                                                     marginBottom: '10px',
                                                     marginTop: '32px',
                                                     backgroundColor: 'rgb(241,240,239)',
+                                                    fontSize: "12px"
                                                 }}
                                             >
                                                 Drag and drop your files here or &nbsp; &nbsp;
                                                 <Button
                                                     component='label'
                                                     variant='contained'
-                                                    style={{ textTransform: 'capitalize' }}
+                                                    style={{ textTransform: 'capitalize', fontSize: "12px" }}
                                                 >
                                                     Browse
                                                     <VisuallyHiddenInput
@@ -1688,13 +1670,14 @@ const IncidentResolve = () => {
                                                     textAlign: 'center',
                                                     marginBottom: '10px',
                                                     backgroundColor: 'rgb(241,240,239)',
+                                                    fontSize: "12px"
                                                 }}
                                             >
                                                 Drag and drop your files here or &nbsp; &nbsp;
                                                 <Button
                                                     component='label'
                                                     variant='contained'
-                                                    style={{ textTransform: 'capitalize' }}
+                                                    style={{ textTransform: 'capitalize', fontSize: "12px" }}
                                                 >
                                                     Browse
                                                     <VisuallyHiddenInput
@@ -1759,6 +1742,8 @@ const IncidentResolve = () => {
                                 </Form.Group>
                             </div>
                         </div>
+
+                        <Button className='mt-2' variant='contained' style={{ backgroundColor: "rgb(123, 57, 241)" }}>Submit</Button>
                     </div>
                 </div>
             </div>

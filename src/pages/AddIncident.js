@@ -553,7 +553,7 @@ const AddIncident = () => {
       label: 'Supplier Name',
       options: ['One', 'Two', 'Three'],
     },
-    { widgetType: 'input', label: 'Affected quantity' },
+    // { widgetType: 'input', label: 'Affected quantity' },
     {
       widgetType: 'dropdown',
       label: 'Issue Area',
@@ -568,6 +568,7 @@ const AddIncident = () => {
     },
     { widgetType: 'input', label: 'Product Code' },
     { widgetType: 'input', label: 'Batch number' },
+    { widgetType: 'input', label: 'Affected quantity' },
   ].filter(
     (item) =>
       !widgets.some(
@@ -588,97 +589,97 @@ const AddIncident = () => {
   return (
     <div className='right-cont'>
       <div className='card'>
-        <div className='m-4 row'>
+        <div className='m-2 row'>
           <div class='col-md-8'>
             <h5 style={{ fontSize: '24px', fontWeight: '600' }}>
               Case details
             </h5>
             {/* <div className='mt-2'> */}
-              <div className='row'>
-                <div className='col-md-9 mt-2'>
-                  <div className='row'>
-                    <div className='col-md-3'>
-                      <Form.Group
-                        className='mb-0'
-                        controlId='exampleForm.ControlInput1'
+            <div className='row'>
+              <div className='col-md-9 mt-2'>
+                <div className='row'>
+                  <div className='col-md-3'>
+                    <Form.Group
+                      className='mb-0'
+                      controlId='exampleForm.ControlInput1'
+                    >
+                      <Form.Label className='text_color'>
+                        Source <span className='star'>*</span>
+                      </Form.Label>
+                      <Form.Select
+                        className='input_border'
+                        aria-label='Default select example'
                       >
-                        <Form.Label className='text_color'>
-                          Source <span className='star'>*</span>
-                        </Form.Label>
-                        <Form.Select
-                          className='input_border'
-                          aria-label='Default select example'
-                        >
-                          <option>Select Source</option>
-                          <option value='1'>Phone call</option>
-                          <option value='2'>Mail</option>
-                          <option value='3'>Production line</option>
-                        </Form.Select>
-                      </Form.Group>
-                    </div>
-                    <div className='col-md-3'>
-                      <Form.Group
-                        className='mb-0'
-                        controlId='exampleForm.ControlInput1'
+                        <option>Select Source</option>
+                        <option value='1'>Phone call</option>
+                        <option value='2'>Mail</option>
+                        <option value='3'>Production line</option>
+                      </Form.Select>
+                    </Form.Group>
+                  </div>
+                  <div className='col-md-3'>
+                    <Form.Group
+                      className='mb-0'
+                      controlId='exampleForm.ControlInput1'
+                    >
+                      <Form.Label className='text_color'>
+                        Category <span className='star'>*</span>
+                      </Form.Label>
+                      <Form.Select
+                        className='input_border'
+                        aria-label='Default select example'
                       >
-                        <Form.Label className='text_color'>
-                          Category <span className='star'>*</span>
-                        </Form.Label>
-                        <Form.Select
-                          className='input_border'
-                          aria-label='Default select example'
-                        >
-                          <option>Select Category</option>
-                          <option value='1'>Incident</option>
-                          <option value='2'>Injury</option>
-                          <option value='3'>Complaint</option>
-                          <option value='4'>Hazard</option>
-                        </Form.Select>
-                      </Form.Group>
-                    </div>
-                    <div className='col-md-3'>
-                      <Form.Group
-                        className='mb-0'
-                        controlId='exampleForm.ControlInput1'
+                        <option>Select Category</option>
+                        <option value='1'>Incident</option>
+                        <option value='2'>Injury</option>
+                        <option value='3'>Complaint</option>
+                        <option value='4'>Hazard</option>
+                      </Form.Select>
+                    </Form.Group>
+                  </div>
+                  <div className='col-md-3'>
+                    <Form.Group
+                      className='mb-0'
+                      controlId='exampleForm.ControlInput1'
+                    >
+                      <Form.Label className='text_color'>
+                        Severity <span className='star'>*</span>
+                      </Form.Label>
+                      <Form.Select
+                        className='input_border'
+                        aria-label='Default select example'
                       >
-                        <Form.Label className='text_color'>
-                          Severity <span className='star'>*</span>
-                        </Form.Label>
-                        <Form.Select
-                          className='input_border'
-                          aria-label='Default select example'
-                        >
-                          <option>Select Severity</option>
-                          <option value='1'>Critical</option>
-                          <option value='2'>High</option>
-                          <option value='3'>Moderate</option>
-                          <option value='4'>Low</option>
-                        </Form.Select>
-                      </Form.Group>
-                    </div>{' '}
-                    <div className='col-md-3 mt-1'>
-                      <Form.Group
-                        className='mb-0'
-                        controlId='exampleForm.ControlInput1'
+                        <option>Select Severity</option>
+                        <option value='1'>Critical</option>
+                        <option value='2'>High</option>
+                        <option value='3'>Moderate</option>
+                        <option value='4'>Low</option>
+                      </Form.Select>
+                    </Form.Group>
+                  </div>{' '}
+                  <div className='col-md-3 mt-1'>
+                    <Form.Group
+                      className='mb-0'
+                      controlId='exampleForm.ControlInput1'
+                    >
+                      <Form.Label className='text_color'>
+                        Assign to{' '}
+                      </Form.Label>
+                      <Form.Select
+                        className='input_border mt-1'
+                        aria-label='Default select example'
                       >
-                        <Form.Label className='text_color'>
-                          Assign to{' '}
-                        </Form.Label>
-                        <Form.Select
-                          className='input_border mt-1'
-                          aria-label='Default select example'
-                        >
-                          <option>Select Person</option>
-                          <option value='1'>Assign 1</option>
-                          <option value='2'>Assign 2</option>
-                          <option value='3'> Assign 3</option>
-                          <option value='4'>Assign 4</option>
-                        </Form.Select>
-                      </Form.Group>
-                    </div>
+                        <option>Select Person</option>
+                        <option value='1'>Assign 1</option>
+                        <option value='2'>Assign 2</option>
+                        <option value='3'> Assign 3</option>
+                        <option value='4'>Assign 4</option>
+                      </Form.Select>
+                    </Form.Group>
                   </div>
                 </div>
-                {/* <div className='col-md-9'>
+              </div>
+              {/* <div className='col-md-9'>
                                     <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
                                         <Form.Label className='text_color'>Category <span className='star'>*</span></Form.Label>
                                         <Form.Select className='input_border' aria-label="Default select example">
@@ -690,40 +691,40 @@ const AddIncident = () => {
                                         </Form.Select>
                                     </Form.Group>
                                 </div> */}
-                <div className='col-md-9 mt-2'>
-                  <Form.Group
-                    className='mb-0'
-                    controlId='exampleForm.ControlTextarea1'
-                  >
-                    <Form.Label className='text_color'>
-                      Case Summary <span className='star'>*</span>
-                    </Form.Label>
-                    <Form.Control
-                      className='input_border'
-                      as='textarea'
-                      rows={1}
-                      placeholder='Write the description'
-                    />
-                  </Form.Group>
-                </div>
-                <div className='col-md-9 mt-2'>
-                  <Form.Group
-                    className='mb-0'
-                    controlId='exampleForm.ControlTextarea1'
-                  >
-                    <Form.Label className='text_color'>
-                      Case Description <span className='star'>*</span>
-                    </Form.Label>
-                    <Form.Control
-                      className='input_border'
-                      as='textarea'
-                      rows={2}
-                      placeholder='Write the description'
-                    />
-                  </Form.Group>
-                </div>
+              <div className='col-md-9 mt-2'>
+                <Form.Group
+                  className='mb-0'
+                  controlId='exampleForm.ControlTextarea1'
+                >
+                  <Form.Label className='text_color'>
+                    Case Summary <span className='star'>*</span>
+                  </Form.Label>
+                  <Form.Control
+                    className='input_border'
+                    as='textarea'
+                    rows={1}
+                    placeholder='Write the description'
+                  />
+                </Form.Group>
+              </div>
+              <div className='col-md-9 mt-2'>
+                <Form.Group
+                  className='mb-0'
+                  controlId='exampleForm.ControlTextarea1'
+                >
+                  <Form.Label className='text_color'>
+                    Case Description <span className='star'>*</span>
+                  </Form.Label>
+                  <Form.Control
+                    className='input_border'
+                    as='textarea'
+                    rows={2}
+                    placeholder='Write the description'
+                  />
+                </Form.Group>
+              </div>
 
-                {/* <div className='col-md-9'>
+              {/* <div className='col-md-9'>
                                     <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
                                         <Form.Label className='text_color'>Severity <span className='star'>*</span></Form.Label>
                                         <Form.Select className='input_border' aria-label="Default select example">
@@ -736,7 +737,7 @@ const AddIncident = () => {
                                     </Form.Group>
                                 </div> */}
 
-                {/* <div className='col-md-9 mt-2'>
+              {/* <div className='col-md-9 mt-2'>
                   <div className='row'>
                     <div className='col-md-6'>
                       <Form.Group
@@ -780,145 +781,146 @@ const AddIncident = () => {
                     </div>
                   </div>
                 </div> */}
-                <div className='col-md-9 mt-2'>
-                  <label className='text_color'>
-                    Upload Attachment <span className='star'>*</span>
-                  </label>
-                  <div
-                    onDrop={handleDrop}
-                    onDragOver={handleDragOver}
-                    style={{
-                      border: '2px dashed #ccc',
-                      padding: '3px',
-                      borderRadius: '6px',
-                      border: '1px solid #4a6bce',
-                      textAlign: 'center',
-                      marginBottom: '10px',
-                      backgroundColor: 'rgb(241,240,239)',
-                    }}
+              <div className='col-md-9 mt-2'>
+                <label className='text_color'>
+                  Upload Attachment <span className='star'>*</span>
+                </label>
+                <div
+                  onDrop={handleDrop}
+                  onDragOver={handleDragOver}
+                  style={{
+                    border: '2px dashed #ccc',
+                    padding: '3px',
+                    borderRadius: '6px',
+                    border: '1px solid #4a6bce',
+                    textAlign: 'center',
+                    marginBottom: '10px',
+                    backgroundColor: 'rgb(241,240,239)',
+                    fontSize: "12px"
+                  }}
+                >
+                  Drag and drop your files here or &nbsp; &nbsp;
+                  <Button
+                    component='label'
+                    variant='contained'
+                    style={{ textTransform: 'capitalize', fontSize: "12px" }}
                   >
-                    Drag and drop your files here or &nbsp; &nbsp;
-                    <Button
-                      component='label'
-                      variant='contained'
-                      style={{ textTransform: 'capitalize' }}
-                    >
-                      Browse
-                      <VisuallyHiddenInput
-                        type='file'
-                        multiple
-                        onChange={handleFileChange}
-                      />
-                    </Button>
-                  </div>
-                  {selectedFiles.length > 0 && (
-                    <List>
-                      {selectedFiles.map((file, index) => (
-                        <ListItem key={index} divider>
-                          <ListItemText primary={file.name} />
-                          <ListItemSecondaryAction>
-                            <IconButton
-                              edge='end'
-                              aria-label='delete'
-                              onClick={() => handleRemoveFile(index)}
-                            >
-                              <CloseIcon />
-                            </IconButton>
-                          </ListItemSecondaryAction>
-                        </ListItem>
-                      ))}
-                    </List>
-                  )}
+                    Browse
+                    <VisuallyHiddenInput
+                      type='file'
+                      multiple
+                      onChange={handleFileChange}
+                    />
+                  </Button>
                 </div>
-
-                <div className='col-md-9 mt-2'>
-                  <div>
-                    <div
-                      className='right-cont col-md-12'
-                      onDrop={handleOnDrop}
-                      onDragOver={handleDragOver}
-                    >
-                      <div className='drop_text'>
-                        <label>
-                          Drop your fields here (or){' '}
-                        </label>
-                        <label onClick={handleAddWidgets}>
-                          {' '}
-                          &nbsp; Add to click here
-                        </label>
-                      </div>
-
-                      {widgets.map((widget, index) => (
-                        <div key={index}>
-                          <Form.Group
-                            className='mb-3'
-                            controlId={`exampleForm.ControlInput${index}`}
+                {selectedFiles.length > 0 && (
+                  <List>
+                    {selectedFiles.map((file, index) => (
+                      <ListItem key={index} divider>
+                        <ListItemText primary={file.name} />
+                        <ListItemSecondaryAction>
+                          <IconButton
+                            edge='end'
+                            aria-label='delete'
+                            onClick={() => handleRemoveFile(index)}
                           >
-                            <Form.Label className='text_color'>
-                              {widget.label}
-                            </Form.Label>
-                            <div style={{ display: 'flex' }}>
-                              {widget.widgetType === 'dropdown' ? (
-                                <Form.Select
-                                  className='input_border'
-                                  aria-label='Default select example'
-                                >
-                                  <option>Please select {widget.label}</option>
-                                  {widget.options.map((option, i) => (
-                                    <option key={i} value={option}>
-                                      {option}
-                                    </option>
-                                  ))}
-                                </Form.Select>
-                              ) : widget.widgetType === 'date' ? (
-                                <TextField
-                                  id={`date-picker-${index}`}
-                                  label={widget.label}
-                                  type='date'
-                                  defaultValue=''
-                                  className='input_border'
-                                  InputLabelProps={{
-                                    shrink: true,
-                                  }}
-                                  style={{ width: '100%' }}
-                                />
-                              ) : (
-                                <input
-                                  className='input_border form-control'
-                                  type='text'
-                                  placeholder={`Enter ${widget.label}`}
-                                />
-                              )}
-                              <IconButton
-                                onClick={() =>
-                                  handleCloseWidget(
-                                    widget.label,
-                                    widget.widgetType
-                                  )
-                                }
-                              >
-                                <CloseIcon className='close_icon' />
-                              </IconButton>
-                            </div>
-                          </Form.Group>
-                        </div>
-                      ))}
+                            <CloseIcon />
+                          </IconButton>
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    ))}
+                  </List>
+                )}
+              </div>
 
-                      {widgets.map((widget, index) => (
-                        <div key={index}>
-                          <Form.Group
-                            controlId={`exampleForm.ControlInput${index}`}
-                          >
-                            {selectedWidget === widget && (
-                              <div style={{ display: 'flex' }}></div>
-                            )}
-                          </Form.Group>
-                        </div>
-                      ))}
+              <div className='col-md-9 mt-2'>
+                <div>
+                  <div
+                    className='right-cont col-md-12 mt-0'
+                    onDrop={handleOnDrop}
+                    onDragOver={handleDragOver}
+                  >
+                    <div className='drop_text' style={{ fontSize: "12px" }}>
+                      <label>
+                        Drop your fields here (or){' '}
+                      </label>
+                      <label onClick={handleAddWidgets}>
+                        {' '}
+                        &nbsp; Add to click here
+                      </label>
                     </div>
+
+                    {widgets.map((widget, index) => (
+                      <div key={index}>
+                        <Form.Group
+                          className='mb-3'
+                          controlId={`exampleForm.ControlInput${index}`}
+                        >
+                          <Form.Label className='text_color'>
+                            {widget.label}
+                          </Form.Label>
+                          <div style={{ display: 'flex' }}>
+                            {widget.widgetType === 'dropdown' ? (
+                              <Form.Select
+                                className='input_border'
+                                aria-label='Default select example'
+                              >
+                                <option>Please select {widget.label}</option>
+                                {widget.options.map((option, i) => (
+                                  <option key={i} value={option}>
+                                    {option}
+                                  </option>
+                                ))}
+                              </Form.Select>
+                            ) : widget.widgetType === 'date' ? (
+                              <TextField
+                                id={`date-picker-${index}`}
+                                label={widget.label}
+                                type='date'
+                                defaultValue=''
+                                className='input_border'
+                                InputLabelProps={{
+                                  shrink: true,
+                                }}
+                                style={{ width: '100%' }}
+                              />
+                            ) : (
+                              <input
+                                className='input_border form-control'
+                                type='text'
+                                placeholder={`Enter ${widget.label}`}
+                              />
+                            )}
+                            <IconButton
+                              onClick={() =>
+                                handleCloseWidget(
+                                  widget.label,
+                                  widget.widgetType
+                                )
+                              }
+                            >
+                              <CloseIcon className='close_icon' />
+                            </IconButton>
+                          </div>
+                        </Form.Group>
+                      </div>
+                    ))}
+
+                    {widgets.map((widget, index) => (
+                      <div key={index}>
+                        <Form.Group
+                          controlId={`exampleForm.ControlInput${index}`}
+                        >
+                          {selectedWidget === widget && (
+                            <div style={{ display: 'flex' }}></div>
+                          )}
+                        </Form.Group>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
+            </div>
             {/* </div> */}
           </div>
           <div className='col-md-4 mt-5 movingdiv' >
@@ -929,7 +931,7 @@ const AddIncident = () => {
               >
                 Drag and drop dynamic fields into Case details
               </h6>
-              <div className='row m-2'>
+              {/* <div className='row m-2'>
                 {draggableItems.map((item, index) => (
                   <div key={index} className='col-md-4 p-2'>
                     <div
@@ -948,8 +950,31 @@ const AddIncident = () => {
                     </div>
                   </div>
                 ))}
-              </div>
+              </div> */}
+              <ul>
+                {draggableItems.map((item, index) => (
+
+                  <li className='dragable_btn'
+                    draggable={true}
+                    onDragStart={(e) =>
+                      handleDragStart(
+                        e,
+                        item.widgetType,
+                        item.label,
+                        item.options
+                      )
+                    }
+                    key={index} >
+                    {item.label}
+                  </li>
+
+
+                ))}
+              </ul>
             </div>
+          </div>
+          <div className='mt-4 '>
+            <Button variant='contained' style={{backgroundColor: "rgb(123, 57, 241)"}}>Create incident</Button>
           </div>
         </div>
       </div>
