@@ -974,7 +974,7 @@ const AddIncident = () => {
             </div>
           </div>
           <div className='mt-4 '>
-            <Button variant='contained' style={{backgroundColor: "rgb(123, 57, 241)"}}>Create incident</Button>
+            <Button variant='contained' style={{ backgroundColor: "rgb(123, 57, 241)" }}>Create incident</Button>
           </div>
         </div>
       </div>

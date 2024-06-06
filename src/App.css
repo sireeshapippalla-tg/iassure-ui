@@ -60,14 +60,15 @@ select.selectpicker {
 .rootcause_label {
   /* background: #90afc5; */
   background: #7e6bc3;
-  padding: 24px 40px;
+  padding: 15px 40px;
   align-items: center;
   text-align: center;
   display: flex;
   justify-content: center;
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 400;
   color: white;
+  margin: auto;
 }
 
 .triangle {
@@ -79,21 +80,21 @@ select.selectpicker {
   border-left: 30px solid #4a6bce;
   border-right: 0;
   position: absolute;
-  top: -1px;
+  /* top: -1px; */
   right: -30px;
 }
 
 .trianglediv {
   background: #4a6bce;
   width: 80%;
-  height: 68px;
+  height: 50px;
   position: relative;
   display: flex;
   text-align: center;
   justify-content: center;
   align-items: center;
   color: white;
-  font-size: 15px;
+  font-size: 12px;
 }
 
 .accordian_summery {
@@ -116,14 +117,14 @@ select.selectpicker {
 .movingdiv2 {
   position: sticky;
   top: 250px;
-  right: 100px;
+  right: 48px;
   width: 600px;
-  padding: 20px;
+  padding: 16px;
   background-color: #2a4085;
   border: 0 solid #ccc;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-  height: 300px;
+  height: 220px;
 }
 
 

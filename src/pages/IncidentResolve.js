@@ -378,7 +378,7 @@ const IncidentResolve = () => {
                         {/*----------------- Form ------------------------*/}
                         <div>
                             <div className='row'>
-                                <div class='col-md-8'>
+                                <div class='col-md-7'>
                                     <h5 style={{ fontSize: '24px', fontWeight: '600' }}>
                                         Case details
                                     </h5>
@@ -691,7 +691,7 @@ const IncidentResolve = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='col-md-4 mt-5 movingdiv2'>
+                                <div className='col-md-5 mt-5 movingdiv2'>
                                     <div className=''>
                                         <h6
                                             className='m-3 text-white'
@@ -1187,7 +1187,7 @@ const IncidentResolve = () => {
                                                                                     whyInputshandleRemoveRow(index)
                                                                                 }
                                                                             >
-                                                                                <CloseIcon style={{ color: 'red' }} />
+                                                                                <CloseIcon style={{ color: 'red',  fontSize: '18px', }} />
                                                                             </IconButton>
                                                                         )}
                                                                         <IconButton
@@ -1197,8 +1197,8 @@ const IncidentResolve = () => {
                                                                             <AddIcon
                                                                                 className='blue'
                                                                                 style={{
-                                                                                    fontSize: '30px',
-                                                                                    fontWeight: '500',
+                                                                                    fontSize: '20px',
+                                                                                    // fontWeight: '500',
                                                                                 }}
                                                                             />
                                                                         </IconButton>
@@ -1318,29 +1318,29 @@ const IncidentResolve = () => {
                                                 <TableHead>
                                                     <TableRow style={{ backgroundColor: '#4a6bce' }}>
                                                         <TableCell
-                                                            className='text-center fs-6 fw-bold text-white'
-                                                            style={{ width: '350px', fontSize: "15px" }}
+                                                            className='text-center text-white'
+                                                            style={{ width: '350px', fontSize:"12px"}}
                                                         >
                                                             Action taken
                                                         </TableCell>
                                                         <TableCell
-                                                            className='text-center fs-6 fw-bold text-white'
-                                                            style={{ width: '450px', fontSize: "15px" }}
+                                                            className='text-center text-white'
+                                                            style={{ width: '450px', fontSize:"12px", fontSize:"12px" }}
                                                         >
                                                             Supporting Document
                                                         </TableCell>
-                                                        <TableCell className='text-center fs-6 fw-bold text-white' style={{ fontSize: "15px" }}>
+                                                        <TableCell className='text-center text-white' style={{fontSize:"12px"}}>
                                                             Date
                                                         </TableCell>
                                                         {/* <TableCell className='text-center fs-6 fw-bold text-white'>Comment</TableCell> */}
                                                         <TableCell
-                                                            className='text-center fs-6 fw-bold text-white'
-                                                            style={{ width: '100px', fontSize: "15px" }}
+                                                            className='text-center text-white'
+                                                            style={{ fontSize:"12px"}}
                                                         >
                                                             Is Resolved
                                                         </TableCell>
                                                         {/* <TableCell className='text-center fs-6 fw-bold text-white' style={{ width: "250px" }}>Supporting Document</TableCell> */}
-                                                        <TableCell className='text-center fs-6 fw-bold text-white' style={{ fontSize: "15px" }}>
+                                                        <TableCell className='text-center text-white' style={{fontSize:"12px"}}>
                                                             Action
                                                         </TableCell>
                                                     </TableRow>
@@ -1522,14 +1522,14 @@ const IncidentResolve = () => {
                                                                         correctivehandleDeleteRow(row.id)
                                                                     }
                                                                 >
-                                                                    <CloseIcon style={{ color: 'red' }} />
+                                                                    <CloseIcon style={{ color: 'red', fontSize: '18px', }} />
                                                                 </IconButton>
                                                                 <IconButton onClick={CorrectivehandleAddRow}>
                                                                     <AddIcon
                                                                         className='blue'
                                                                         style={{
-                                                                            fontSize: '28px',
-                                                                            fontWeight: '500',
+                                                                            fontSize: '20px',
+                                                                            
                                                                         }}
                                                                     />
                                                                 </IconButton>
