@@ -699,27 +699,7 @@ const IncidentResolve = () => {
                                         >
                                             Drag and drop dynamic fields into Case details
                                         </h6>
-                                        {/* <div className='row m-2'>
-                                           
-                                            {draggableItems.map((item, index) => (
-                                                <div key={index} className='col-md-4 p-2'>
-                                                    <div
-                                                        className='dragable_btn'
-                                                        draggable={true}
-                                                        onDragStart={(e) =>
-                                                            handleDragStart(
-                                                                e,
-                                                                item.widgetType,
-                                                                item.label,
-                                                                item.options
-                                                            )
-                                                        }
-                                                    >
-                                                        {item.label}
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div> */}
+                                     
                                         <ul>
                                             {draggableItems.map((item, index) => (
 
@@ -1385,33 +1365,7 @@ const IncidentResolve = () => {
                                                             <TableCell
                                                                 style={{ margin: 'auto', textAlign: 'center' }}
                                                             >
-                                                                {/* <Input
-                                                                    type='file'
-                                                                    inputProps={{ multiple: true }}
-                                                                    style={{
-                                                                        border: '1px solid #ddd',
-                                                                        borderRadius: '4px',
-                                                                        padding: '0px 10px',
-                                                                        background: '#fff',
-                                                                    }}
-                                                                /> */}
-
-                                                                {/* <Button
-                                                                    component="label"
-                                                                    variant="contained"
-                                                                    // tabIndex={-1}
-                                                                    startIcon={<CloudUploadIcon />}
-                                                                >
-                                                                    Upload file
-                                                                    <VisuallyHiddenInput
-                                                                        type="file"
-                                                                        inputProps={{ multiple: true }}
-                                                                        style={{
-                                                                            display: 'none'
-                                                                        }}
-                                                                        onChange={handleFileChange}
-                                                                    />
-                                                                </Button> */}
+                                                             
                                                                 <Button
                                                                     component='label'
                                                                     variant='contained'
@@ -1427,20 +1381,6 @@ const IncidentResolve = () => {
                                                                     />
                                                                 </Button>
 
-                                                                {/* {tableCorrectveSelectedFiles.map((file, index) => (
-                                                                    <ListItem key={index} divider >
-                                                                        <ListItemText primary={file.name} />
-                                                                        <ListItemSecondaryAction>
-                                                                            <IconButton
-                                                                                edge='end'
-                                                                                aria-label='delete'
-                                                                                onClick={() => tableCorrectiveHandleRemoveFile(index)}
-                                                                            >
-                                                                                <CloseIcon />
-                                                                            </IconButton>
-                                                                        </ListItemSecondaryAction>
-                                                                    </ListItem>
-                                                                ))} */}
 
                                                                 {tableCorrectveSelectedFiles.length > 0 && (
                                                                     <List style={{ marginLeft: 20, padding: 0 }}>
@@ -1484,15 +1424,7 @@ const IncidentResolve = () => {
                                                                     }}
                                                                 />
                                                             </TableCell>
-                                                            {/* <TableCell style={{ margin: "auto", textAlign: "center" }}>
-                                                                <textarea
-                                                                    value={row.comment}
-                                                                    onChange={(e) => correctiveRowshandleChange(row.id, "comment", e.target.value)}
-                                                                    className="form-control"
-                                                                    id="exampleFormControlTextarea1"
-                                                                    rows="1"
-                                                                ></textarea>
-                                                            </TableCell> */}
+                                                       
                                                             <TableCell
                                                                 style={{ margin: 'auto', textAlign: 'center' }}
                                                             >
@@ -1507,9 +1439,7 @@ const IncidentResolve = () => {
                                                                     }
                                                                 />
                                                             </TableCell>
-                                                            {/* <TableCell style={{ margin: "auto", textAlign: "center" }}>
-                                                                <Input type="file" style={{ border: '1px solid #ddd', borderRadius: '4px', padding: '0px 10px', background: '#fff' }} />
-                                                            </TableCell> */}
+                                            
                                                             <TableCell
                                                                 className='d-flex'
                                                                 style={{
@@ -1564,9 +1494,7 @@ const IncidentResolve = () => {
                                             </Form.Group>
                                         </div>
                                         <div className='col-md-6'>
-                                            {/* <label className='text_color'>
-                        Upload Attachment <span className='star'>*</span>
-                      </label> */}
+                             
                                             <div
                                                 onDrop={handleDrop}
                                                 onDragOver={handleDragOver}

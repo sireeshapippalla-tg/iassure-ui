@@ -679,18 +679,7 @@ const AddIncident = () => {
                   </div>
                 </div>
               </div>
-              {/* <div className='col-md-9'>
-                                    <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
-                                        <Form.Label className='text_color'>Category <span className='star'>*</span></Form.Label>
-                                        <Form.Select className='input_border' aria-label="Default select example">
-                                            <option>Please select Category</option>
-                                            <option value="1">Incident</option>
-                                            <option value="2">Injury</option>
-                                            <option value="3">Complaint</option>
-                                            <option value="4">Hazard</option>
-                                        </Form.Select>
-                                    </Form.Group>
-                                </div> */}
+  
               <div className='col-md-9 mt-2'>
                 <Form.Group
                   className='mb-0'
@@ -724,63 +713,7 @@ const AddIncident = () => {
                 </Form.Group>
               </div>
 
-              {/* <div className='col-md-9'>
-                                    <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
-                                        <Form.Label className='text_color'>Severity <span className='star'>*</span></Form.Label>
-                                        <Form.Select className='input_border' aria-label="Default select example">
-                                            <option>Please select Category</option>
-                                            <option value="1">Critical</option>
-                                            <option value="2">High</option>
-                                            <option value="3">Moderate</option>
-                                            <option value="4">Low</option>
-                                        </Form.Select>
-                                    </Form.Group>
-                                </div> */}
 
-              {/* <div className='col-md-9 mt-2'>
-                  <div className='row'>
-                    <div className='col-md-6'>
-                      <Form.Group
-                        className='mb-0'
-                        controlId='exampleForm.ControlInput1'
-                      >
-                        <Form.Label className='text_color'>
-                          Severity <span className='star'>*</span>
-                        </Form.Label>
-                        <Form.Select
-                          className='input_border'
-                          aria-label='Default select example'
-                        >
-                          <option>Please select Category</option>
-                          <option value='1'>Critical</option>
-                          <option value='2'>High</option>
-                          <option value='3'>Moderate</option>
-                          <option value='4'>Low</option>
-                        </Form.Select>
-                      </Form.Group>
-                    </div>{' '}
-                    <div className='col-md-6 mt-1'>
-                      <Form.Group
-                        className='mb-0'
-                        controlId='exampleForm.ControlInput1'
-                      >
-                        <Form.Label className='text_color'>
-                          Assign to{' '}
-                        </Form.Label>
-                        <Form.Select
-                          className='input_border'
-                          aria-label='Default select example'
-                        >
-                          <option>Please select Category</option>
-                          <option value='1'>Assign 1</option>
-                          <option value='2'>Assign 2</option>
-                          <option value='3'> Assign 3</option>
-                          <option value='4'>Assign 4</option>
-                        </Form.Select>
-                      </Form.Group>
-                    </div>
-                  </div>
-                </div> */}
               <div className='col-md-9 mt-2'>
                 <label className='text_color'>
                   Upload Attachment <span className='star'>*</span>
@@ -931,26 +864,6 @@ const AddIncident = () => {
               >
                 Drag and drop dynamic fields into Case details
               </h6>
-              {/* <div className='row m-2'>
-                {draggableItems.map((item, index) => (
-                  <div key={index} className='col-md-4 p-2'>
-                    <div
-                      className='dragable_btn'
-                      draggable={true}
-                      onDragStart={(e) =>
-                        handleDragStart(
-                          e,
-                          item.widgetType,
-                          item.label,
-                          item.options
-                        )
-                      }
-                    >
-                      {item.label}
-                    </div>
-                  </div>
-                ))}
-              </div> */}
               <ul>
                 {draggableItems.map((item, index) => (
 
